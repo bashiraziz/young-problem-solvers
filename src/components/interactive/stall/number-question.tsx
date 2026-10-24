@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useRef } from "react";
 import { explainParseError, parseWholeNumber } from "@/lib/challenge/parse";
 import { MAX_HINTS, canReveal, isQuestionDone, type QState } from "./state";
 
@@ -21,6 +21,7 @@ export interface NumberQuestionProps {
 /** One typed-number question with check, graduated hints and an optional worked answer. */
 export function NumberQuestion({ label, inputLabel, state, hints, onCheck, onInput, onResult, onHint, onReveal, checkLabel = "Check" }: NumberQuestionProps) {
   const uid = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
   const inputId = `${uid}-input`;
   const msgId = `${uid}-msg`;
   const promptId = `${uid}-prompt`;
@@ -29,7 +30,10 @@ export function NumberQuestion({ label, inputLabel, state, hints, onCheck, onInp
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const parsed = parseWholeNumber(state.input);
+    // Read the box itself, not React state: autofill, IME or a very fast Enter can submit before state catches up.
+    const raw = inputRef.current?.value ?? state.input;
+    if (raw !== state.input) onInput(raw);
+    const parsed = parseWholeNumber(raw);
     if (!parsed.ok) {
       onResult("invalid", explainParseError(parsed.reason));
       return;
@@ -45,6 +49,7 @@ export function NumberQuestion({ label, inputLabel, state, hints, onCheck, onInp
         <div className="min-w-0 flex-1 basis-44">
           <label htmlFor={inputId} className="block text-sm font-semibold text-muted">{inputLabel}</label>
           <input
+            ref={inputRef}
             id={inputId}
             type="text"
             inputMode="numeric"

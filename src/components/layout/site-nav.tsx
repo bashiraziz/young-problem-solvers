@@ -15,7 +15,7 @@ export function SiteNav() {
             key={l.href}
             href={l.href}
             aria-current={current ? "page" : undefined}
-            className={`border-b-2 py-1 text-[13px] font-bold ${current ? "border-teal text-teal" : "border-transparent text-ink/75 hover:text-teal"}`}
+            className={`border-b-2 py-2 text-[13px] font-bold ${current ? "border-teal text-teal" : "border-transparent text-ink/75 hover:text-teal"}`}
           >
             {l.label}
           </Link>

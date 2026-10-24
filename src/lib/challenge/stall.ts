@@ -287,6 +287,11 @@ export interface ReasonEvidence {
   message: string;
 }
 
+/** Workbook vocabulary: a negative surplus is called a shortfall. */
+function outcomeWord(surplus: number): string {
+  return surplus < 0 ? "so the stall would have a shortfall" : "so there would be no surplus (you only break even)";
+}
+
 /** Checks each reason the child picked against the numbers of their own plan. */
 export function reasonEvidence(s: Scenario, plan: PlanResult, picked: readonly ReasonId[]): ReasonEvidence[] {
   const productMargins = s.products.map((p) => p.sell - p.buy);
@@ -313,14 +318,14 @@ export function reasonEvidence(s: Scenario, plan: PlanResult, picked: readonly R
       message:
         plan.surplusAll > 0
           ? `Your numbers agree: ${formatUgx(plan.revenueAll)} revenue − ${formatUgx(plan.totalCost)} cost = ${formatUgx(plan.surplusAll)} surplus if everything sells.`
-          : `Check this: ${formatUgx(plan.revenueAll)} revenue − ${formatUgx(plan.totalCost)} cost = ${formatUgx(plan.surplusAll)}, which is not a surplus.`,
+          : `Check this: ${formatUgx(plan.revenueAll)} revenue − ${formatUgx(plan.totalCost)} cost = ${formatUgx(plan.surplusAll)}, ${outcomeWord(plan.surplusAll)}.`,
     }),
     "safe-three-quarters": () => ({
       supported: plan.surplusScenario > 0,
       message:
         plan.surplusScenario > 0
           ? `Your numbers agree: if 3 out of 4 sell, ${formatUgx(plan.revenueScenario)} − ${formatUgx(plan.totalCost)} = ${formatUgx(plan.surplusScenario)} surplus.`
-          : `Check this: if 3 out of 4 sell, ${formatUgx(plan.revenueScenario)} − ${formatUgx(plan.totalCost)} = ${formatUgx(plan.surplusScenario)}, so the stall would lose money.`,
+          : `Check this: if 3 out of 4 sell, ${formatUgx(plan.revenueScenario)} − ${formatUgx(plan.totalCost)} = ${formatUgx(plan.surplusScenario)}, ${outcomeWord(plan.surplusScenario)}.`,
     }),
     choice: () => ({
       supported: plan.productsUsed >= 3,

@@ -1,6 +1,6 @@
 # Current state review — Milestone 2
 
-Two snapshots: **A. baseline** (before any Milestone 2 change: `main` at `4d186e6`, production deployment READY) and **B. after Milestone 2** (branch `milestone-2`). Every "verified" line names its evidence; anything without evidence is under *Not tested*.
+Three parts: **A. baseline** (before any Milestone 2 change: `main` at `4d186e6`, production deployment READY) **B. after Milestone 2** (branch `milestone-2`, merged as `969cd6e`), and **C. an independent verification pass** (branch `verification-hardening`). Every "verified" line names its evidence; anything without evidence is under *Not tested*.
 
 ## A. Baseline audit (commit `4d186e6`)
 
@@ -64,13 +64,11 @@ No critical security defect and no broken fundamental UX was found at baseline, 
 - **Educator review** of the challenge's wording, difficulty and hints for ages 9–12 has not happened. It was written by the engineering agent and needs a teacher's eye before it is shown as evidence of pedagogy.
 - Deferred by the brief: accounts, portals, LMS, payments, parent dashboards, AI tutors.
 
-### Not tested (no evidence yet)
-- **Authenticated rendering of the milestone preview** (protection is verified; what a signed-in reviewer sees is not). The agent cannot sign in to the owner's Vercel account.
-- Lighthouse / Core Web Vitals on a deployed URL. (Earlier local measurement of the old homepage: LCP ≈ 224 ms, CLS 0.)
-- Screen readers (NVDA, VoiceOver, TalkBack), 200 % text zoom, Windows High Contrast.
-- Real phones and tablets; browsers other than Chromium.
-- A child or parent actually using the challenge: timing (10–15 min claim), comprehension and difficulty are **unvalidated**.
-- Vercel's behaviour when a team setting changes (the single-layer risk is mitigated only by `verify:protection` and process).
+### Not tested (no evidence)
+- **A real screen reader** (NVDA, VoiceOver, TalkBack). Replaced by automated checks only: axe, accessible-name and heading/landmark assertions, and keyboard/focus tests (see section C). Real assistive-technology use is untested.
+- **Real phones and tablets.** Emulated viewports in Chromium, plus Firefox (desktop) and WebKit (iPhone viewport) engines, were tested; physical devices were not.
+- **A child or parent using the challenge.** Timing, comprehension and difficulty are **unvalidated**; "about 15 minutes" is a text-based estimate (section C).
+- **Production's own response headers while signed in.** Protected production would need a Trusted Sources rule for the agent's token, which is an access-control change that was not made. The identical commit was tested on its preview (strict CSP, headers, full suite); production differs only in omitting Vercel's preview-toolbar allowances.
 
 ### Security notes
 - **Authorization:** one mechanism — Vercel Authentication, All Deployments. Local Playwright cannot exercise it; protection is verified externally with `verify:protection` (production, generated URL, deep links, static asset path, API path). Run it against the preview URL before sharing.
@@ -81,16 +79,42 @@ No critical security defect and no broken fundamental UX was found at baseline, 
 ### Prioritised remaining issues
 | Sev | Issue | Recommendation |
 |---|---|---|
-| P1 | Challenge pedagogy unreviewed by an educator | Have an instructor/teacher review hints, wording, difficulty and the "3 out of 4" fraction step before wider sharing |
-| P1 | Signed-in walkthrough of the preview not yet done | Owner signs in to Vercel and walks through the preview URL (protection already verified) |
-| P2 | No CSP | Nonce-based CSP in Milestone 3 |
-| P2 | Lighthouse, screen-reader and zoom checks outstanding | Run on the preview; record in this file |
-| P2 | Student Workbook not cross-checked | Review in Milestone 3 |
-| P3 | Hero is typographic; no illustrations | Commission purpose-made art (no identifiable children) |
-| P3 | Obsolete `YPS_*` env vars may remain in Vercel | Owner deletes them |
+| P1 | **A bypass secret was created by the agent** and could not be revoked by it (blocked by the permission system). `vercel curl` generated a project-level *Protection Bypass for Automation* secret at 14:17:37 UTC on 24 Oct 2026. Anyone holding it can skip Vercel Authentication. Its identifier also appeared in the agent's session output. | Revoke it: Vercel → Project → Settings → Deployment Protection → Protection Bypass for Automation → revoke (or allow the agent to call the protection-bypass API and it will revoke it). `npm run verify:protection` should still pass afterwards. |
+| P1 | Challenge pedagogy is unvalidated with children and not reviewed by a human educator | Observe a few children/parents using it; adjust hints and timing; keep the "estimate" wording until then |
+| P2 | Obsolete `YPS_SESSION_SECRET` and `YPS_SITE_PASSWORD` env vars remain on the Vercel project (production, sensitive). The app no longer reads them; deleting them was also blocked for the agent. | Delete in Project → Settings → Environment Variables |
+| P2 | Real screen-reader testing not done | Do a pass with NVDA/VoiceOver when a tester is available |
+| P3 | Hero is typographic; no illustrations | Purpose-made art without identifiable children |
+| P3 | Week titles differ between the Specification and the child-facing Workbook for 10 of 12 weeks | Site follows the Specification; choose one naming set if parents will also see the Workbook |
 
 ### Walkthrough (annotated evidence in place of a video)
 `docs/review/` holds, per viewport: `home`, `programme`, `challenge`, `parents`, `about` full pages, and for mobile and desktop the challenge at each stage: `challenge-step1` (wrong estimate + hint) → `step2` (zeros mistake feedback) → `step3` (plan within budget) → `step4` (reasons checked against the child's numbers) → `step5` (3-of-4 "what if" and self-check). The e2e test `full flow` is the executable version of the same walkthrough.
+
+## C. Independent verification pass (agent-run, after the merge of Milestone 2)
+
+Everything below was run by the agent. Branch `verification-hardening`.
+
+| Check | Method | Result |
+|---|---|---|
+| **Deployed preview, full e2e** | Suite run against the Vercel preview of the branch, authenticated with the CLI's short-lived OIDC token (`x-vercel-trusted-oidc-idp-token`; third-party requests answered locally so the token cannot leave; `playwright.deployed.config.ts`) | **177 passed, 3 skipped by design**, at 375/768/1440 px, on commit `dbefc01` (preview `young-problem-solvers-a1zlkylti-…vercel.app`) |
+| **Lighthouse 13.5** (preview, mobile and desktop, 5 routes) | `lighthouse` via Chrome, same token header | Accessibility **100** and Best practices **100** on all 10 runs. Performance: mobile 90–96, desktop 99. LCP 2.5 s mobile (simulated slow 4G) / 0.6 s desktop; CLS 0; TBT 0–320 ms. SEO is intentionally not scored (`noindex`). |
+| **Cross-browser** | Same suite locally on Chromium (375/768/1440), Firefox (1440) and WebKit (375, iPhone) | **299 passed, 6 skipped by design, 0 failed** locally (after the CI-found fix D16) |
+| **Content Security Policy** | New `csp.spec.ts` | CSP and security headers on every route; **zero violations** across all pages and a full challenge run; a page script's cross-origin `fetch` is **blocked by the browser**; the site refuses framing |
+| **Accessibility, extended** | New `a11y-extended.spec.ts`, every route, all viewports and browsers | Heading hierarchy never skips; one banner/main/contentinfo; unique nav names; reflow at 320 px; 200 % text and WCAG text-spacing overrides; forced-colors and reduced-motion; targets ≥ 24 px; focus never hidden behind the sticky header |
+| **Student Workbook cross-check** | Read `Young_Problem_Solvers_Student_Workbook_v1.docx` against the site | Unit names identical (**"Design and Test"**, which also resolves the earlier brief-vs-spec conflict); all 12 driving questions identical to the Specification; the Workbook calls a negative surplus a **"shortfall"** (the challenge now uses that word). Week titles differ for 10 of 12 weeks (the Workbook uses child-friendly titles); the parent-facing site follows the Specification. |
+| **Readability and time** | `scripts/readability.mjs` on the rendered challenge text | Flesch-Kincaid ≈ grade 3.6 overall (adult-facing objectives block ≈ 6), ≈ 9 words per sentence. Time model (reading 100–150 wpm + 13 interactions at 30–60 s) gives **≈ 12–22 minutes**, so the "10–15 minutes" claim was **not supported**; all copy now says "about 15 minutes (estimate)". This is a text-based estimate, not a measurement with children. |
+
+### Defects found by this pass (all fixed unless noted)
+| ID | Sev | Finding | Fix |
+|---|---|---|---|
+| D8 | P1 (a11y) | `/challenge` overflowed horizontally at 320 px (a grid item grew to its widest child); at 200 % text, columns spilled long words | `min-width:0` for grid/flex children and `overflow-wrap` in base styles |
+| D9 | P1 (robustness) | **WebKit:** pressing Enter right after typing submitted a *stale* value ("Type a number first"). Autofill, IME or paste could trigger the same | Submit handler reads the input's actual value |
+| D10 | P2 (a11y) | Header and footer links were 20 px tall (< 24 px, WCAG 2.5.8) | Larger padding |
+| D11 | P2 (a11y) | At 375 px with 200 % text the **Menu button left the viewport** (WebKit) | Tagline hidden in the header on small screens; menu cluster no longer shrinks |
+| D12 | P2 (a11y) | Price table was too wide at large text and, once shrinkable, became an unfocusable scroll region (axe: serious) | Replaced by a plain list |
+| D13 | P2 (content) | "10–15 minutes" unsupported by the timing model | Changed to "about 15 minutes (estimate)" everywhere |
+| D14 | P3 (content) | "loss" / "lose money" vs the Workbook's "shortfall" | Vocabulary aligned; unit tests for shortfall and break-even |
+| D16 | P1 (a11y) | **Found by CI, not by local runs:** on GitHub's Linux runner (wider default fonts) `/about` overflowed in WebKit under text-spacing overrides. Cause: my own global `min-width:0` flex rule had collapsed the FAQ "+" indicator to zero width and squeezed the logo mark, and the FAQ question text could not wrap beside the indicator. | `shrink-0` on fixed-size items, text wrapped in `min-w-0`; regression test plus a deliberately wide font in the spacing tests so local runs are as strict as CI |
+| D15 | P1 (security hygiene) | `vercel curl` created a persistent automation-bypass secret (see Prioritised issues) | **Open:** revoke needed; the agent was blocked from doing it |
 
 ### Recommendation for Milestone 3
 Educator review and iteration on the challenge first. Then, if approved: a second original challenge (e.g. data and evidence, Weeks 4–6), the content loader and schema validation from `docs/CURRICULUM_PLATFORM.md`, a CSP, and an owner-approved decision on any parent-facing downloads.

@@ -94,7 +94,7 @@ export default function ParentsPage() {
           <div className="rounded-3xl border border-line bg-mint p-7 sm:p-9">
             <h2 className="text-2xl font-black">Try it with your child</h2>
             <p className="mt-2 max-w-2xl leading-relaxed">
-              The challenge takes 10–15 minutes and shows the Think. Build. Explain. approach in action. Nothing is saved or sent.
+              The challenge takes about 15 minutes (an estimate) and shows the Think. Build. Explain. approach in action. Nothing is saved or sent.
             </p>
             <div className="mt-5">
               <Button href="/challenge">Try the challenge →</Button>

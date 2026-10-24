@@ -13,7 +13,7 @@ import { formatUgx } from "@/lib/formatters";
 
 export const metadata: Metadata = {
   title: "Try a Challenge",
-  description: "A 10–15 minute budgeting challenge for ages 9–12: estimate, calculate, choose, justify and reflect. Nothing is recorded or sent.",
+  description: "An estimated 15-minute budgeting challenge for ages 9–12: estimate, calculate, choose, justify and reflect. Nothing is recorded or sent.",
 };
 
 export default function ChallengePage() {
@@ -45,27 +45,16 @@ export default function ChallengePage() {
 
           <section aria-labelledby="prices-h" className="rounded-3xl border border-line bg-white p-6">
             <h2 id="prices-h" className="text-xl font-black">Price list</h2>
-            <div className="mt-3 overflow-x-auto">
-              <table className="w-full min-w-[22rem] text-left text-sm">
-                <caption className="sr-only">Buying and selling price of each product, in Ugandan shillings</caption>
-                <thead>
-                  <tr className="border-b border-line">
-                    <th scope="col" className="py-2 pr-3">Product</th>
-                    <th scope="col" className="py-2 pr-3">You buy at</th>
-                    <th scope="col" className="py-2">You sell at</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {S.products.map((p) => (
-                    <tr key={p.id} className="border-b border-line last:border-0">
-                      <th scope="row" className="py-2 pr-3 font-bold">{p.name}</th>
-                      <td className="py-2 pr-3">{formatUgx(p.buy)} per {p.unit}</td>
-                      <td className="py-2">{formatUgx(p.sell)} per {p.unit}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ul className="mt-3 divide-y divide-line">
+              {S.products.map((p) => (
+                <li key={p.id} className="py-3">
+                  <p className="font-bold">{p.name}</p>
+                  <p className="text-sm text-muted">
+                    You buy at {formatUgx(p.buy)} per {p.unit}. You sell at {formatUgx(p.sell)} per {p.unit}.
+                  </p>
+                </li>
+              ))}
+            </ul>
             <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
               <div className="rounded-xl bg-cream px-4 py-3"><dt className="text-muted">Your budget</dt><dd className="font-extrabold">{formatUgx(S.budget)}</dd></div>
               <div className="rounded-xl bg-cream px-4 py-3"><dt className="text-muted">Stall fee (must pay)</dt><dd className="font-extrabold">{formatUgx(S.stallFee)}</dd></div>

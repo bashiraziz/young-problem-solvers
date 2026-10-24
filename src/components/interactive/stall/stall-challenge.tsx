@@ -317,7 +317,7 @@ export function StallChallenge() {
                 You would sell about {plan.lines.reduce((n, l) => n + l.soldInScenario, 0)} of your {plan.totalUnits} items and take in{" "}
                 <strong>{formatUgx(plan.revenueScenario)}</strong>. Your costs stay at {formatUgx(plan.totalCost)}, so your surplus would be{" "}
                 <strong>{formatUgx(plan.surplusScenario)}</strong>
-                {plan.surplusScenario < 0 ? " (a loss)." : "."}
+                {plan.surplusScenario < 0 ? " (a shortfall: you would spend more than you take in)." : "."}
               </p>
               <p className="mt-3 text-sm font-semibold">
                 Think: what is one number you could change in your plan to make it safer? Go back to step 3 to try it.

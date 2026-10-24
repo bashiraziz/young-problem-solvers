@@ -19,6 +19,18 @@
   --shadow-card: 0 20px 70px rgba(24, 57, 54, 0.09);
 }
 
+/* Robust reflow: grid items may shrink below their content width, and long words wrap instead of spilling out
+   (WCAG 1.4.4 / 1.4.10 / 1.4.12: enlarged text, narrow screens, user text-spacing). */
+@layer base {
+  .grid > *,
+  .flex > * {
+    min-width: 0;
+  }
+  body {
+    overflow-wrap: break-word;
+  }
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;

@@ -20,7 +20,7 @@ export function Hero() {
             real-world problems and learn to explain their ideas with confidence.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/challenge">Try the 10-minute challenge →</Button>
+            <Button href="/challenge">Try the challenge →</Button>
             <Button href="/programme" variant="outline">See the 12-week programme</Button>
           </div>
           <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-sm font-semibold text-ink/80">

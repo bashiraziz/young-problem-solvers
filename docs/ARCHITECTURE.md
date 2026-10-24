@@ -10,7 +10,7 @@ Single Next.js 16 App Router project, TypeScript strict, Tailwind v4. The homepa
 | Logic | Pure functions in `src/lib/challenge` (parsing, estimate, calculation, plan, reasons) and a pure reducer for challenge state, all unit-tested; no storage or network |
 | Styling | Tailwind tokens in `globals.css` `@theme` |
 | Access | Vercel Authentication, All Deployments (platform edge; no auth code in the app) — `docs/SECURITY.md` |
-| Headers | `next.config.ts`: `X-Robots-Tag: noindex`, nosniff, frame deny, referrer policy |
+| Headers | `next.config.ts`: `X-Robots-Tag: noindex`, nosniff, frame deny, referrer policy, Permissions-Policy, Content-Security-Policy (production) |
 | Tests | Vitest + Testing Library (unit); Playwright + axe (mobile/tablet/desktop) |
 | CI | GitHub Actions: lint, typecheck, unit, build, e2e |
 

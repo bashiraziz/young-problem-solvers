@@ -10,7 +10,7 @@ export const REFRESHMENTS_STALL: Scenario = {
   version: "1.0.0",
   title: "The School Fair Refreshments Stall",
   ageRange: "9–12",
-  duration: "10–15 minutes",
+  duration: "about 15 minutes (estimate)",
   weekIds: ["foundation.w01", "foundation.w02", "foundation.w10", "foundation.w11"],
   budget: 100_000,
   stallFee: 15_000,
@@ -42,7 +42,7 @@ export const STALL_ASSUMPTIONS = [
   "Everything here is made up: the fair, the supplier and every price.",
   "You pay the supplier for everything you buy, whether or not it sells.",
   "The stall fee is paid once, before the fair starts.",
-  "Surplus means the money you take in (revenue) minus all the money you spent (cost).",
+  "Surplus means the money you take in (revenue) minus all the money you spent (cost). If it is negative, it is called a shortfall.",
   "You can only sell whole items, so we round down when taking a fraction of a quantity.",
 ] as const;
 
