@@ -4,7 +4,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
     <span className="flex items-center gap-3">
       <span
         aria-hidden="true"
-        className="flex size-11 -rotate-3 items-center justify-center rounded-2xl bg-deep text-[17px] font-black tracking-tighter text-white"
+        className="flex size-11 shrink-0 -rotate-3 items-center justify-center rounded-2xl bg-deep text-[17px] font-black tracking-tighter text-white"
       >
         YPS
       </span>

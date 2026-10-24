@@ -22,7 +22,8 @@ for (const path of ROUTES) {
     await page.addStyleTag({ content: "html{font-size:200% !important}" });
     expect(await overflow(page), "200% text").toBeLessThanOrEqual(0);
     await page.addStyleTag({
-      content: "*{line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important} p{margin-bottom:2em !important}",
+      // A deliberately wide font keeps local runs as strict as Linux CI, whose default fonts are wider than Windows or macOS.
+      content: "*{font-family:Verdana,'DejaVu Sans',sans-serif !important;line-height:1.5 !important;letter-spacing:0.12em !important;word-spacing:0.16em !important} p{margin-bottom:2em !important}",
     });
     expect(await overflow(page), "text spacing").toBeLessThanOrEqual(0);
     // Primary heading must still be fully inside the viewport width.
@@ -87,6 +88,18 @@ for (const path of ROUTES) {
     await expect(header).toBeVisible();
   });
 }
+
+test("fixed-size flex items are never squeezed (logo mark, FAQ indicators), even with huge text and a wide font", async ({ page }) => {
+  await page.goto("/about");
+  await page.addStyleTag({ content: "html{font-size:200% !important} *{font-family: Verdana, 'DejaVu Sans', sans-serif !important; letter-spacing:0.12em !important}" });
+  const mark = await page.locator("header [aria-hidden=true]").first().evaluate((el) => ({ w: el.getBoundingClientRect().width, scrollW: el.scrollWidth, clientW: el.clientWidth }));
+  expect(mark.scrollW, "logo text fits its box").toBeLessThanOrEqual(mark.clientW + 1);
+  expect(mark.w).toBeGreaterThanOrEqual(40);
+  const indicators = await page.locator("summary span[aria-hidden=true]").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().width));
+  expect(indicators.length).toBeGreaterThan(0);
+  for (const w of indicators) expect(w).toBeGreaterThan(4);
+  expect(await overflow(page)).toBeLessThanOrEqual(0);
+});
 
 // A viewport override (not page.setViewportSize, which hangs in Firefox at this width) works in every browser.
 test.describe("at 320 px wide (WCAG 1.4.10 reflow)", () => {
