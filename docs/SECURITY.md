@@ -1,5 +1,9 @@
 # Security
 
+## Learning Library material
+- The repository is **public** at the time of writing; Vercel Authentication does not protect Git. Only student-facing pilot content and two student PDFs are committed. Never commit teacher manuals, answer keys, the unit assessment or student data. `.gitignore` blocks the known confidential files; `tests/unit/learning-library.test.ts` and the e2e privacy test enforce it.
+- Practice answers are checked in the browser and are never stored or sent (CSP `connect-src 'self'`, no storage; e2e test).
+
 ## Access control (Phase 1): Vercel Authentication, All Deployments
 Vercel Authentication is the **only** access control. It is free on all plans and is applied at Vercel's edge before any request reaches the app, so a visitor without access sees only a Vercel sign-in redirect — never this site's code, login page or assets. The app has no authentication code (ADR-007; the earlier shared-password gate was removed).
 

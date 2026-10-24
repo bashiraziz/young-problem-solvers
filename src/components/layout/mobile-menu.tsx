@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { NAV_LINKS } from "./nav-links";
+import { NAV_LINKS, isCurrent } from "./nav-links";
 
 export function MobileMenu() {
   const pathname = usePathname();
@@ -47,9 +47,9 @@ export function MobileMenu() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  aria-current={pathname === l.href ? "page" : undefined}
+                  aria-current={isCurrent(pathname, l) ? "page" : undefined}
                   onClick={() => setOpenedOn(null)}
-                  className={`block rounded-lg px-3 py-3 text-base font-bold hover:bg-mint ${pathname === l.href ? "text-teal" : ""}`}
+                  className={`block rounded-lg px-3 py-3 text-base font-bold hover:bg-mint ${isCurrent(pathname, l) ? "text-teal" : ""}`}
                 >
                   {l.label}
                 </Link>

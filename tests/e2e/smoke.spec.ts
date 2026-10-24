@@ -4,7 +4,11 @@ import { expect, test } from "./fixtures";
 
 const ROUTES = [
   { path: "/", h1: /learn to think/i, title: /Young Problem Solvers/ },
-  { path: "/programme", h1: /Twelve weeks\. Four units/i, title: /Foundation Programme/ },
+  { path: "/programme/foundation", h1: /Twelve weeks\. Four units/i, title: /Foundation Programme/ },
+  { path: "/learn/foundation/unit-1", h1: /Unit 1: Think with Numbers/i, title: /Unit 1/ },
+  { path: "/learn/foundation/unit-1/lesson/l01", h1: /Number Detectives: Place Value/i, title: /Lesson 1/ },
+  { path: "/learn/foundation/unit-1/lesson/l06", h1: /Comparing Value for Money/i, title: /Lesson 6/ },
+  { path: "/practice/foundation/unit-1/lesson/l02", h1: /Estimate, Calculate, Check/i, title: /Practice 2/ },
   { path: "/challenge", h1: /School Fair Refreshments Stall/i, title: /Try a Challenge/ },
   { path: "/parents", h1: /Progress you can actually see/i, title: /For Parents/ },
   { path: "/about", h1: /programme in development/i, title: /About/ },
@@ -70,7 +74,8 @@ test("main navigation reaches every page and marks the current one", async ({ pa
   const menu = page.locator("button[aria-controls=mobile-nav]");
   const compact = await menu.isVisible();
   for (const [name, path] of [
-    ["Foundation Programme", "/programme"],
+    ["Foundation Programme", "/programme/foundation"],
+    ["Learning Library", "/learn/foundation/unit-1"],
     ["Try a Challenge", "/challenge"],
     ["For Parents", "/parents"],
     ["About", "/about"],
@@ -111,7 +116,7 @@ test("mobile menu: Escape closes it and returns focus, and it stays closed after
 
 test("skip link is the first tab stop and moves focus to main content", async ({ page, isMobile }) => {
   test.skip(isMobile, "keyboard check is desktop-oriented");
-  await page.goto("/programme");
+  await page.goto("/programme/foundation");
   await page.keyboard.press("Tab");
   const skip = page.getByRole("link", { name: "Skip to content" });
   await expect(skip).toBeFocused();
@@ -127,7 +132,7 @@ test("home call-to-action leads to the working challenge", async ({ page }) => {
 });
 
 test("programme page shows all 12 weeks with outcomes", async ({ page }) => {
-  await page.goto("/programme");
+  await page.goto("/programme/foundation");
   for (let n = 1; n <= 12; n++) await expect(page.getByText(`Week ${n}`, { exact: true }).first()).toBeVisible();
   await expect(page.getByText("By the end of the week, each child can:")).toHaveCount(12);
   await expect(page.getByRole("heading", { level: 2, name: "Design and Test" })).toBeVisible();
@@ -180,7 +185,7 @@ test("the header logo mark is decorative and the home link keeps its name", asyn
 });
 
 test("parents, about and programme pages stay calm: no mascot", async ({ page }) => {
-  for (const route of ["/parents", "/about", "/programme"]) {
+  for (const route of ["/parents", "/about", "/programme/foundation"]) {
     await page.goto(route);
     await expect(page.locator("img[data-mascot]"), route).toHaveCount(0);
   }

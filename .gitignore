@@ -50,3 +50,10 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# confidential / unapproved source material: never commit (teacher manuals, answer keys, assessments, source packs)
+/docs/*CONFIDENTIAL*
+/docs/*Teacher*
+/docs/*.zip
+/docs/*.docx
+/docs/YPS_Unit1_*.pdf

@@ -1,0 +1,253 @@
+{
+  "schemaVersion": "1.0.0",
+  "programmeId": "yps-foundation",
+  "contentVersion": "2026-10-pilot-v1",
+  "title": "Young Problem Solvers — Foundation",
+  "ageBand": [
+    9,
+    12
+  ],
+  "durationWeeks": 12,
+  "sessionsPerWeek": 2,
+  "sessionMinutes": 90,
+  "status": "pilot-draft-not-validated",
+  "units": [
+    {
+      "id": "unit-1",
+      "title": "Think with Numbers",
+      "weeks": [
+        1,
+        2,
+        3
+      ],
+      "status": "teacher-and-student-materials-drafted",
+      "lessons": [
+        {
+          "id": "YPS-F1-U1-L01",
+          "week": 1,
+          "session": 1,
+          "title": "Number Detectives: Place Value",
+          "question": "How does the position of a digit change its value?",
+          "learningObjectives": [
+            "Represent five-digit amounts using ten-thousands, thousands, hundreds, tens and ones.",
+            "Compare and order amounts without guessing from the first digit alone.",
+            "Explain a comparison using place-value language."
+          ]
+        },
+        {
+          "id": "YPS-F1-U1-L02",
+          "week": 1,
+          "session": 2,
+          "title": "Estimate, Calculate, Check",
+          "question": "How can an estimate help us catch mistakes?",
+          "learningObjectives": [
+            "Round whole-number prices to the nearest 100 or 1,000.",
+            "Estimate a sum, then calculate it exactly.",
+            "Assess whether an answer is reasonable and check it using another strategy."
+          ]
+        },
+        {
+          "id": "YPS-F1-U1-L03",
+          "week": 2,
+          "session": 1,
+          "title": "Budgets and Priorities",
+          "question": "What must we pay for before we choose extras?",
+          "learningObjectives": [
+            "Distinguish total budget, reserved money, required costs and optional purchases.",
+            "Compute an accurate subtotal using multiplication and addition.",
+            "Decide how much remains available without spending reserved money."
+          ]
+        },
+        {
+          "id": "YPS-F1-U1-L04",
+          "week": 2,
+          "session": 2,
+          "title": "Choices, Trade-offs and New Information",
+          "question": "Which affordable plan best meets a goal?",
+          "learningObjectives": [
+            "Compare alternative shopping plans against an explicit budget constraint.",
+            "Explain why an affordable plan may still be less suitable than another.",
+            "Revise a plan when a price, reserve or requirement changes."
+          ]
+        },
+        {
+          "id": "YPS-F1-U1-L05",
+          "week": 3,
+          "session": 1,
+          "title": "Equal Groups and Whole Packets",
+          "question": "What does a remainder mean when buying whole packets?",
+          "learningObjectives": [
+            "Model equal groups using repeated addition and multiplication.",
+            "Divide a quantity by packet size and interpret the remainder.",
+            "Round UP to the next whole packet when partial packets cannot be purchased."
+          ]
+        },
+        {
+          "id": "YPS-F1-U1-L06",
+          "week": 3,
+          "session": 2,
+          "title": "Comparing Value for Money",
+          "question": "What is the cheapest feasible way to supply enough cups?",
+          "learningObjectives": [
+            "Calculate the total number of packets needed for a target quantity.",
+            "Compare total purchase costs, not just price per packet.",
+            "Use evidence to recommend a feasible purchasing plan."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit-2",
+      "title": "Investigate the World",
+      "weeks": [
+        4,
+        5,
+        6
+      ],
+      "status": "outline-only"
+    },
+    {
+      "id": "unit-3",
+      "title": "Design and Test",
+      "weeks": [
+        7,
+        8,
+        9
+      ],
+      "status": "outline-only"
+    },
+    {
+      "id": "unit-4",
+      "title": "Build and Explain",
+      "weeks": [
+        10,
+        11,
+        12
+      ],
+      "status": "outline-only"
+    }
+  ],
+  "publicationNotice": "Draft for expert review. No evidence of validated learning gains or school accreditation.",
+  "weeks": [
+    {
+      "week": 1,
+      "title": "Number detectives",
+      "objectives": [
+        "Read, compare and partition whole numbers in everyday examples.",
+        "Round to useful place values and estimate sums before calculating.",
+        "Check a calculation using a second strategy and explain a discrepancy."
+      ],
+      "drivingQuestion": "How do we know if a numerical answer makes sense?"
+    },
+    {
+      "week": 2,
+      "title": "Budget choices",
+      "objectives": [
+        "Add and subtract UGX amounts accurately and keep track of a reserve.",
+        "Distinguish required purchases from optional ones.",
+        "Compare affordable plans using calculations and a clear explanation."
+      ],
+      "drivingQuestion": "How can a limited budget guide our decisions?"
+    },
+    {
+      "week": 3,
+      "title": "Groups, rates and sharing",
+      "objectives": [
+        "Model equal groups with multiplication and related division.",
+        "Interpret a unit price and compare two offers of the same quantity.",
+        "Explain remainders correctly in a real-life situation."
+      ],
+      "drivingQuestion": "When should we multiply, divide or estimate?"
+    },
+    {
+      "week": 4,
+      "title": "Measure before deciding",
+      "objectives": [
+        "Choose suitable units for length and capacity.",
+        "Estimate and then measure with appropriate tools.",
+        "Record measurements with units and calculate simple totals/differences."
+      ],
+      "drivingQuestion": "Why do reliable measurements matter?"
+    },
+    {
+      "week": 5,
+      "title": "Collect and display data",
+      "objectives": [
+        "Formulate a neutral, answerable question.",
+        "Collect and organize small anonymous datasets using tallies.",
+        "Construct/read a simple bar chart with titles and labelled axes."
+      ],
+      "drivingQuestion": "How can evidence help us notice patterns?"
+    },
+    {
+      "week": 6,
+      "title": "Claims and evidence",
+      "objectives": [
+        "Read values, totals and differences from a graph or table.",
+        "Separate what a dataset shows from what it does not show.",
+        "Use a calculation and evidence to support a short written claim."
+      ],
+      "drivingQuestion": "When is a claim stronger than a guess?"
+    },
+    {
+      "week": 7,
+      "title": "Patterns and rules",
+      "objectives": [
+        "Extend arithmetic and shape patterns from an explicit rule.",
+        "Describe a rule in words, tables or arrows.",
+        "Test a proposed rule with a new input and find counterexamples."
+      ],
+      "drivingQuestion": "Can we describe a rule precisely enough to predict?"
+    },
+    {
+      "week": 8,
+      "title": "Logic and instructions",
+      "objectives": [
+        "Order actions as a finite sequence and identify missing steps.",
+        "Follow constraints when planning a route or arrangement.",
+        "Debug instructions and communicate the correction clearly."
+      ],
+      "drivingQuestion": "What makes instructions unambiguous?"
+    },
+    {
+      "week": 9,
+      "title": "Build, test, improve",
+      "objectives": [
+        "Specify a clear success criterion before a trial.",
+        "Run at least three fair trials and record observations.",
+        "Use test results to make and justify one improvement."
+      ],
+      "drivingQuestion": "How do we know whether a design really works?"
+    },
+    {
+      "week": 10,
+      "title": "Fractions in decisions",
+      "objectives": [
+        "Represent common fractions as equal parts of a whole.",
+        "Calculate unit fractions and familiar fractions of whole-number quantities.",
+        "Explain a stock allocation using fractions and counts."
+      ],
+      "drivingQuestion": "How can parts of a whole affect a plan?"
+    },
+    {
+      "week": 11,
+      "title": "Mini-enterprise decisions",
+      "objectives": [
+        "Calculate total cost and revenue from quantities and unit amounts.",
+        "Distinguish revenue from surplus and explain why both matter.",
+        "Revise a plan when a constraint or demand estimate changes."
+      ],
+      "drivingQuestion": "How do we compare income, cost and surplus?"
+    },
+    {
+      "week": 12,
+      "title": "Final challenge and reflection",
+      "objectives": [
+        "Complete an independent, unfamiliar multi-step problem using appropriate strategies.",
+        "Present one project decision supported by calculations or measurements.",
+        "Identify personal growth, a remaining gap, and an actionable next goal."
+      ],
+      "drivingQuestion": "What can I now solve independently and explain to others?"
+    }
+  ]
+}

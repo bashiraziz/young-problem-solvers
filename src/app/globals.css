@@ -26,6 +26,10 @@
   .flex > * {
     min-width: 0;
   }
+  /* A fieldset defaults to min-width: min-content, which stops long labels wrapping at narrow widths. */
+  fieldset {
+    min-width: 0;
+  }
   body {
     overflow-wrap: break-word;
   }

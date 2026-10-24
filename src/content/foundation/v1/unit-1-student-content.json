@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "1.0.0",
+  "unitId": "unit-1",
+  "visibility": "student-preview",
+  "lessons": [
+    {
+      "id": "YPS-F1-U1-L01",
+      "wk": 1,
+      "session": 1,
+      "title": "Number Detectives: Place Value",
+      "question": "How does the position of a digit change its value?",
+      "objectives": [
+        "Represent five-digit amounts using ten-thousands, thousands, hundreds, tens and ones.",
+        "Compare and order amounts without guessing from the first digit alone.",
+        "Explain a comparison using place-value language."
+      ],
+      "keyidea": "The value of a digit depends on its position. To compare whole numbers, begin with the highest place value and move right until you find a difference.",
+      "model": "UGX 24,650 has 2 ten-thousands, 4 thousands, 6 hundreds, 5 tens and 0 ones. To compare 24,650 and 24,560: both have 2 ten-thousands and 4 thousands; 6 hundreds is more than 5 hundreds. So 24,650 > 24,560.",
+      "worked_steps": [
+        "Write each amount in a place-value table.",
+        "Check the ten-thousands column, then thousands, then hundreds.",
+        "Write >, < or =, and explain the first place where the numbers differ."
+      ],
+      "guided": [
+        "Which is larger: UGX 18,950 or UGX 19,050? Explain.",
+        "Partition 32,406 as a sum of place values."
+      ],
+      "practice": [
+        "1. Write 40,305 in expanded form.",
+        "2. In 57,219, what is the value of digit 7?",
+        "3. Use <, > or =: 28,409 __ 28,490.",
+        "4. Order from least to greatest: 9,200; 8,950; 9,020; 8,905.",
+        "5. A receipt shows 16,700 but a learner records 16,070. Describe the place-value error.",
+        "6. Write any two amounts between 12,450 and 12,500; explain why they fit."
+      ],
+      "challenge": "A bookshop displays three prices: UGX 24,650, 24,560 and 25,046. A customer believes 24,560 is the highest because it ends in 560. Show why this is incorrect.",
+      "exit": "Which is greater: 30,099 or 29,999? Explain using one place value."
+    },
+    {
+      "id": "YPS-F1-U1-L02",
+      "wk": 1,
+      "session": 2,
+      "title": "Estimate, Calculate, Check",
+      "question": "How can an estimate help us catch mistakes?",
+      "objectives": [
+        "Round whole-number prices to the nearest 100 or 1,000.",
+        "Estimate a sum, then calculate it exactly.",
+        "Assess whether an answer is reasonable and check it using another strategy."
+      ],
+      "keyidea": "Estimation gives a sensible range before an exact calculation. When rounding to the nearest 1,000, look at the hundreds digit; when rounding to the nearest 100, look at the tens digit.",
+      "model": "UGX 4,800 + UGX 6,300: nearest 1,000 gives 5,000 + 6,000 = 11,000. Exact sum: 11,100. A claimed total of 12,100 is too high by UGX 1,000. Nearest 100 gives 4,800 + 6,300 = 11,100.",
+      "worked_steps": [
+        "Decide how precise the estimate needs to be.",
+        "Round both amounts using the correct next digit.",
+        "Add exactly and compare with the estimate.",
+        "Use subtraction or regrouping to verify."
+      ],
+      "guided": [
+        "Estimate and calculate 7,480 + 2,620 to the nearest thousand.",
+        "A child writes 3,950 + 4,180 = 9,130. How would you check?"
+      ],
+      "practice": [
+        "1. Round 6,450 to nearest 100 and nearest 1,000.",
+        "2. Estimate 2,780 + 5,120 to nearest 1,000.",
+        "3. Find the exact sum for Question 2.",
+        "4. Estimate and calculate 12,490 + 3,710. Show your chosen rounding.",
+        "5. A sign says 5,750 + 2,250 = 9,000. Correct it and explain.",
+        "6. Explain when rounding to 100 is more useful than rounding to 1,000."
+      ],
+      "challenge": "A class has UGX 20,000 for two items costing UGX 9,650 and UGX 10,250. Will the money be enough? Estimate first and compute exactly.",
+      "exit": "A total is reported as UGX 14,600 for 8,350 + 5,250. Is it right? Show a check."
+    },
+    {
+      "id": "YPS-F1-U1-L03",
+      "wk": 2,
+      "session": 1,
+      "title": "Budgets and Priorities",
+      "question": "What must we pay for before we choose extras?",
+      "objectives": [
+        "Distinguish total budget, reserved money, required costs and optional purchases.",
+        "Compute an accurate subtotal using multiplication and addition.",
+        "Decide how much remains available without spending reserved money."
+      ],
+      "keyidea": "A budget is a limit. Reserved money is not available for optional purchases. Calculate required purchases before deciding about extras.",
+      "model": "Budget UGX 25,000; reserve UGX 3,000. Supplies limit = 22,000. Required: notebooks 2 × 2,500 = 5,000; pencils 3 × 1,000 = 3,000; tape 4,000; poster 2,000. Required supplies = 14,000. Optional supplies allowance = 22,000 − 14,000 = 8,000.",
+      "worked_steps": [
+        "Write the full budget and the reserve separately.",
+        "Multiply quantity × price for each required item.",
+        "Add required costs, then subtract from supplies limit.",
+        "Label the remaining amount precisely: available for extras."
+      ],
+      "guided": [
+        "If the reserve rises to UGX 5,000, what is the new supplies limit?",
+        "Could we buy an extra poster for UGX 2,000 and one marker for UGX 3,500 after the required supplies?"
+      ],
+      "practice": [
+        "1. From UGX 25,000, reserve UGX 3,000. What is left for supplies?",
+        "2. Two notebooks at UGX 2,500 each cost how much?",
+        "3. Three pencils at UGX 1,000 each cost how much?",
+        "4. Find the full required supplies cost: notebooks, pencils, tape UGX 4,000, poster UGX 2,000.",
+        "5. How much may be spent on extras while preserving the reserve?",
+        "6. Explain the difference between reserve and change after shopping."
+      ],
+      "challenge": "You must also keep UGX 2,000 unspent IN ADDITION to the UGX 3,000 reserve. What is the new maximum amount available for optional items?",
+      "exit": "Why is it misleading to say that UGX 11,000 is available for extras after buying the required supplies?"
+    },
+    {
+      "id": "YPS-F1-U1-L04",
+      "wk": 2,
+      "session": 2,
+      "title": "Choices, Trade-offs and New Information",
+      "question": "Which affordable plan best meets a goal?",
+      "objectives": [
+        "Compare alternative shopping plans against an explicit budget constraint.",
+        "Explain why an affordable plan may still be less suitable than another.",
+        "Revise a plan when a price, reserve or requirement changes."
+      ],
+      "keyidea": "A good choice is more than the cheapest price. First reject plans that break constraints; then compare how well affordable options meet the goal and keep enough reserve.",
+      "model": "After required supplies UGX 14,000 and reserve UGX 3,000, optional allowance is UGX 8,000. Plan A: two markers 2 × 3,500 = 7,000 → UGX 1,000 optional allowance remains. Plan B: marker 3,500 + extra poster 2,000 = 5,500 → UGX 2,500 remains. Both are affordable; choose based on the event’s needs.",
+      "worked_steps": [
+        "List non-negotiable requirements.",
+        "Calculate all-in cost, including reserve.",
+        "Reject a plan that exceeds the budget.",
+        "Compare the remaining feasible options using a stated goal."
+      ],
+      "guided": [
+        "Plan C adds three markers at UGX 3,500 each. Is it affordable after required supplies and reserve?",
+        "If the reserve increases to UGX 5,000, is Plan A still affordable?"
+      ],
+      "practice": [
+        "1. Plan A: two markers at UGX 3,500. Find optional cost.",
+        "2. Plan B: marker UGX 3,500 plus poster UGX 2,000. Find optional cost.",
+        "3. With UGX 8,000 available, how much remains under Plan A and B?",
+        "4. Can you buy two markers AND a poster? Prove the answer.",
+        "5. A marker price rises to UGX 4,500. Recalculate Plan B.",
+        "6. Write a recommendation for either Plan A or B with two reasons."
+      ],
+      "challenge": "New rule: keep at least UGX 2,000 unspent within the extras allowance. Can Plan A still be chosen? Make a revised recommendation.",
+      "exit": "Does “affordable” always mean “best”? Answer with one calculation-based example."
+    },
+    {
+      "id": "YPS-F1-U1-L05",
+      "wk": 3,
+      "session": 1,
+      "title": "Equal Groups and Whole Packets",
+      "question": "What does a remainder mean when buying whole packets?",
+      "objectives": [
+        "Model equal groups using repeated addition and multiplication.",
+        "Divide a quantity by packet size and interpret the remainder.",
+        "Round UP to the next whole packet when partial packets cannot be purchased."
+      ],
+      "keyidea": "Division can tell us how many groups fit. A remainder means some items are still needed. If packets cannot be split, buy enough whole packets to cover the requirement.",
+      "model": "18 visitors each need 1 cup. A packet contains 4 cups: 18 ÷ 4 = 4 remainder 2. Four packets provide only 16 cups, so buy FIVE packets (20 cups), leaving 2 unused.",
+      "worked_steps": [
+        "Draw equal groups of four cups.",
+        "See whether all 18 visitors have a cup.",
+        "Add one more packet for the remaining two visitors.",
+        "Check: 5 × 4 = 20 ≥ 18."
+      ],
+      "guided": [
+        "For 23 visitors, how many 5-cup packets are needed? How many cups remain?",
+        "For 18 visitors, how many 6-cup packets are needed?"
+      ],
+      "practice": [
+        "1. Show 4 groups of 6 as repeated addition and multiplication.",
+        "2. 18 ÷ 4 equals how many full groups and what remainder?",
+        "3. How many 4-cup packets for 18 visitors?",
+        "4. How many cups are unused after buying those packets?",
+        "5. For 21 visitors, how many 5-cup packets are needed?",
+        "6. Explain why the answer “4.5 packets” is unsuitable for buying packets."
+      ],
+      "challenge": "A packet contains 8 cups. How many packets serve 45 visitors, and how many unused cups remain?",
+      "exit": "17 visitors, packets of 6 cups. How many packets and how many unused cups?"
+    },
+    {
+      "id": "YPS-F1-U1-L06",
+      "wk": 3,
+      "session": 2,
+      "title": "Comparing Value for Money",
+      "question": "What is the cheapest feasible way to supply enough cups?",
+      "objectives": [
+        "Calculate the total number of packets needed for a target quantity.",
+        "Compare total purchase costs, not just price per packet.",
+        "Use evidence to recommend a feasible purchasing plan."
+      ],
+      "keyidea": "Do not compare only the sticker price. Count the number of whole packets required, calculate the total cost for each option, and then compare the plans.",
+      "model": "We need 18 cups. A: 4 cups/packet for UGX 2,000 → 5 packets × 2,000 = UGX 10,000 (20 cups). B: 6 cups/packet for UGX 2,700 → 3 packets × 2,700 = UGX 8,100 (18 cups). Plan B costs UGX 1,900 less.",
+      "worked_steps": [
+        "Find whole packets needed for each option.",
+        "Multiply packets by price per packet.",
+        "Check each option meets the required quantity.",
+        "Compare total costs and state a justified conclusion."
+      ],
+      "guided": [
+        "If 24 cups are needed, calculate the cost of A and B.",
+        "For 19 cups, which single-type option costs less?"
+      ],
+      "practice": [
+        "1. For 18 visitors, how many A packets (4 cups each) are needed?",
+        "2. What is the total A cost at UGX 2,000 each?",
+        "3. For 18 visitors, how many B packets (6 cups each) are needed?",
+        "4. What is the total B cost at UGX 2,700 each?",
+        "5. Which plan is cheaper and by how much?",
+        "6. Explain why choosing A just because one packet costs less can be misleading."
+      ],
+      "challenge": "For 19 visitors, compare A and B again. Does the winner change? Explain.",
+      "exit": "For 12 visitors, A (4 cups @ 2,000) versus B (6 cups @ 2,700): which costs less?"
+    }
+  ]
+}

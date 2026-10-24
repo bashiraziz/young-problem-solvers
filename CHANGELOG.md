@@ -1,6 +1,14 @@
 # Changelog
 
-## Robot mascot, logo mark and favicon (uncommitted)
+## Milestone 3 — Learning Library (branch `learning-library`, in review, not merged)
+- **Routes:** `/programme/foundation` (moved; `/programme` forwards), `/learn/foundation/unit-1`, six lessons under `/learn/foundation/unit-1/lesson/[id]`, six practice views under `/practice/foundation/unit-1/lesson/[id]`.
+- **Lessons 1 and 2 are fully interactive** (hints by method, kind feedback, local scratchpad); lessons 3 to 6 are scaffolded from the content file. Print-ready student coursebook and workbook PDFs (A4, pilot draft) in `public/downloads/`.
+- **Content:** supplied manifest and student JSON, validated by a strict Zod schema; questions store parameters and rules, never answer strings (ADR-010).
+- **Safety:** teacher manual, assessment and teacher zip blocked by `.gitignore`; tests guard `public/`, `src/` and shipped scripts. `verify:protection` covers the new routes and PDFs.
+- **Fixes found by the new tests:** `fieldset` min-width (long labels overflowed at 320 px with wide text spacing); scrollable tables made keyboard-focusable.
+- **Docs:** `docs/content-current-state.md` (audit), `docs/LEARNING_LIBRARY.md` (design and review flags), screenshots `docs/review/learning-*.jpg`.
+
+## Robot mascot, logo mark and favicon (`1774848`)
 - **Brand:** the robot-head mark replaces the "YPS" text badge in the header and footer (decorative, 44 px, same tilt); the wordmark uses Nunito 900 via `next/font/google` (self-hosted at build, so the CSP is unchanged). New `src/app/icon.svg`, `favicon.ico` and `apple-icon.png`.
 - **Mascot:** `src/components/ui/mascot.tsx` (five poses in `public/mascot/`, decorative `alt=""`). Used once each on the home hero (`explaining`, hidden below `sm`), the 404 page (`stuck`) and the challenge, where `mascotMood` in `state.ts` picks the pose (thinking, stuck after a wrong answer or hint with "Hmm, let's look at it another way.", got-it when a step is done, explaining on Justify and Reflect). Parents, About and Programme have no mascot.
 - **Tests:** unit tests for pose logic; e2e for one mascot per page, decorative alt text, logo name, pose per challenge state, icons served; 404 copy updated. Brief: `docs/CLAUDE_CODE_BRIEF.md`.

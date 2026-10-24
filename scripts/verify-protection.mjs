@@ -8,8 +8,26 @@ if (urls.length === 0) {
   process.exit(2);
 }
 
-// Every page, metadata route, a static asset path and an unknown API route.
-const PATHS = ["/", "/programme", "/challenge", "/parents", "/about", "/robots.txt", "/sitemap.xml", "/icon.svg", "/api/x", "/_next/static/chunks/x.js"];
+// Every page, the downloadable PDFs, metadata routes, static asset paths and an unknown API route.
+const PATHS = [
+  "/",
+  "/programme",
+  "/programme/foundation",
+  "/learn/foundation/unit-1",
+  "/learn/foundation/unit-1/lesson/l01",
+  "/practice/foundation/unit-1/lesson/l01",
+  "/downloads/YPS_Unit1_Student_Workbook_PILOT_DRAFT.pdf",
+  "/downloads/YPS_Unit1_Student_Coursebook_PILOT_DRAFT.pdf",
+  "/challenge",
+  "/parents",
+  "/about",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/icon.svg",
+  "/mascot/robot-default.svg",
+  "/api/x",
+  "/_next/static/chunks/x.js",
+];
 
 let failed = false;
 for (const base of urls) {

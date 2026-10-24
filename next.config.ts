@@ -38,6 +38,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The Foundation overview moved to /programme/foundation. Temporary (not 308) while the site is a pilot.
+  async redirects() {
+    return [{ source: "/programme", destination: "/programme/foundation", permanent: false }];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
