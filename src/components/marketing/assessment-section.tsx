@@ -24,34 +24,35 @@ export function AssessmentSection() {
             ))}
           </ol>
         </div>
-        <aside aria-label="Illustrative sample progress report" className="rounded-3xl border-2 border-dashed border-sun bg-white p-7 shadow-card">
+        <aside aria-label="Illustrative sample parent report" className="rounded-3xl border-2 border-dashed border-sun bg-white p-7 shadow-card">
           <p className="inline-block rounded-full bg-sun px-3 py-1 text-xs font-extrabold tracking-widest uppercase">
-            Illustrative example only
+            Illustrative example only · fictional learner
           </p>
-          <h3 className="mt-3 text-xl font-black">Learning progress snapshot</h3>
-          <div className="mt-5 space-y-4">
+          <h3 className="mt-3 text-xl font-black">Parent progress report</h3>
+          <p className="mt-1 text-sm text-muted">
+            {SAMPLE_REPORT.learner} · {SAMPLE_REPORT.summary}
+          </p>
+          <ul className="mt-5 space-y-3">
             {SAMPLE_REPORT.rows.map((r) => (
-              <div key={r.skill}>
-                <div className="flex justify-between text-sm">
-                  <strong>{r.skill}</strong>
-                  <span className="text-muted">{r.level}</span>
+              <li key={r.competency} className="rounded-xl bg-cream p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <strong>{r.competency}</strong>
+                  <span className="text-sm font-extrabold text-teal">Rating {r.rating} of 4</span>
                 </div>
-                <div
-                  role="img"
-                  aria-label={`${r.skill}: ${r.level} (illustrative)`}
-                  className="mt-1.5 h-2.5 rounded-full bg-line"
-                >
-                  <div className="h-full rounded-full bg-teal" style={{ width: `${r.percent}%` }} />
+                <div aria-hidden="true" className="mt-2 flex gap-1">
+                  {[1, 2, 3, 4].map((n) => (
+                    <span key={n} className={`h-2 flex-1 rounded-full ${n <= r.rating ? "bg-teal" : "bg-line"}`} />
+                  ))}
                 </div>
-              </div>
+                <p className="mt-2 text-sm text-muted">{r.evidence}</p>
+              </li>
             ))}
-          </div>
-          <p className="mt-5 rounded-xl bg-cream p-4 text-sm">
-            <strong>Illustrative teacher note:</strong> {SAMPLE_REPORT.note}
+          </ul>
+          <p className="mt-4 rounded-xl bg-cream p-4 text-sm">
+            <strong>Next step:</strong> {SAMPLE_REPORT.nextStep}
           </p>
           <p className="mt-3 text-xs text-muted">
-            Visual example only. Not based on an actual student or measured pilot results; final reporting rubrics will
-            be calibrated.
+            Visual example only; not a real learner or measured pilot result. {SAMPLE_REPORT.caveat}
           </p>
         </aside>
       </Container>

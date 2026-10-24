@@ -23,11 +23,12 @@ export function Approach() {
             </article>
           ))}
         </div>
-        <ol aria-label="Five-stage learning cycle" className="mt-10 flex flex-wrap justify-center gap-3">
+        <ol aria-label="Five-stage learning cycle in every 90-minute session" className="mt-10 flex flex-wrap justify-center gap-3">
           {LEARNING_CYCLE.map((step, i) => (
-            <li key={step} className="flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-bold">
+            <li key={step.stage} className="flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-sm font-bold">
               <span aria-hidden="true" className="flex size-6 items-center justify-center rounded-full bg-teal text-xs text-white">{i + 1}</span>
-              {step}
+              {step.stage}
+              <span className="font-normal text-muted">· {step.minutes} min</span>
             </li>
           ))}
         </ol>

@@ -1,6 +1,6 @@
 # Product
 
-**YPS — Young Problem Solvers.** Think. Build. Explain. Supplementary programme for ages 9–12 in Uganda; 12-week pilot, 24 × 90-minute sessions, four units: Think with Numbers · Investigate the World · Design a Solution · Build and Explain.
+**YPS — Young Problem Solvers.** Think. Build. Explain. Supplementary programme for ages 9–12 in Uganda; 12-week pilot, 24 × 90-minute sessions, four units: Think with Numbers · Investigate the World · Design and Test · Build and Explain.
 
 Maths reasoning leads; communication, investigation, creativity and age-appropriate computational thinking support it. Not an abacus academy, exam-cramming centre or coding club.
 

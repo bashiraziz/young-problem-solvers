@@ -1,32 +1,31 @@
 # Security
 
-## Access control (Phase 1): shared-password gate
-The Product Owner approved an application-level shared-password gate (see `DECISIONS.md` ADR-003) because Vercel Password Protection is a paid feature and free Vercel Authentication only admits Vercel accounts with project access.
+## Access control (Phase 1): Vercel Authentication, All Deployments
+Vercel Authentication is the **only** access control. It is free on all plans and is applied at Vercel's edge before any request reaches the app, so a visitor without access sees only a Vercel sign-in redirect — never this site's code, login page or assets. The app has no authentication code (ADR-007; the earlier shared-password gate was removed).
 
-**How it works**
-- `src/proxy.ts` runs on every request except `/_next/static/*` and `/login`. Without a valid session cookie: browser navigations redirect to `/login`; everything else (`/robots.txt`, `/sitemap.xml`, `/favicon.ico`, any asset or API route) gets `401`. All responses carry `Cache-Control: private, no-store`.
-- Second layer: the homepage calls `requireSession()`, which also makes it dynamic so it is never statically cached.
-- Session: `HttpOnly`, `SameSite=Lax`, `Secure` in production, 12 hours. Token = expiry + random nonce + HMAC-SHA-256, keyed by `YPS_SESSION_SECRET` **and** the password, so changing either signs everyone out.
-- Password check: SHA-256 both sides, then constant-time compare; max length 512.
-- Throttle: 5 failures per IP per 15 minutes, plus a 600 ms delay on each failure. The redirect after login is always `/` (no open redirect).
-- **Fails closed**: if `YPS_SITE_PASSWORD` (14+ chars) or `YPS_SESSION_SECRET` (32+ chars) is missing or short, every request is blocked and the login page shows only "Unavailable." (detail goes to server logs).
+**Configuration (project `young-problem-solvers`, set 24 Oct 2026 via the Vercel API)**
+- `ssoProtection.deploymentType = "all"` → All Deployments: previews, generated URLs and production domains. (The project previously had Standard Protection, which left production domains public.)
+- No Password Protection, no Trusted IPs, no shareable links in use.
 
-**Known limits** (acceptable for a small invite-only preview with no personal data)
-- The throttle is in memory per server instance. On serverless hosting it is not shared across instances, so it slows brute force but is not a hard cap. Mitigation: a long random password. Upgrade path: Vercel WAF rate limiting or a shared store.
-- One shared password: no per-person identity or audit trail. Rotate it when a reviewer should lose access.
-- Server Actions are POSTs and pass through the proxy; the login action is the only unauthenticated one.
-- Anything in `public/` is gated by the proxy, but treat it as visible to every password holder.
+**Verified from outside (curl, logged out):** `/`, `/login`, `/robots.txt`, `/favicon.ico` on the production URL all return `302` to `https://vercel.com/sso-api…`. Repeat with `npm run verify:protection -- <url> [more URLs]` (exit code 1 if anything is not behind the sign-in redirect). **Run it after any change to Vercel project or team settings and after adding a custom domain.**
 
-**Optional extra layer:** Vercel Authentication (free) can be added later on top; it would restrict viewers to Vercel accounts.
+**Who can view**
+- Project owner, team or project members, and Vercel users granted access (a visitor requests access; the owner approves in Project → Settings → Deployment Protection → Requests).
+- **Hobby plan: one external user per account.** More reviewers need a Pro plan or a different method (see "If more reviewers are needed").
+- Shareable Links and Protection Bypass for Automation can bypass protection; neither is enabled. Do not create them without owner approval.
 
-## Operations
-- Set `YPS_SITE_PASSWORD` and `YPS_SESSION_SECRET` in Vercel for **Production and Preview**. Generate the secret with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
-- Rotate by changing either value and redeploying; all sessions end.
-- **Status: not deployed.** After the first Vercel deploy, verify on a real preview URL, logged out and in a private window, that `/`, `/robots.txt` and a static asset are blocked. This has not been done.
-- `noindex` and `robots.txt` are not access controls.
+**Known risks**
+1. **Single layer.** If protection is disabled — by a settings change, a project move, or a new custom domain handled differently — the site becomes public immediately. Mitigation: the verify script above; only the owner changes Vercel settings; content contains no personal data or secrets, only illustrative public-safe material.
+2. Reviewers need Vercel accounts (and Hobby allows one external).
+3. Previously authenticated users keep access after protection is re-enabled until their cookie expires.
+4. No CSP yet (Phase 2 task); no rate limiting needed because there is no app-level login.
+
+**If more reviewers are needed:** upgrade to Pro and add members/viewers; or turn Vercel Authentication off and reintroduce an app-level gate (the removed implementation is in git history at commit `0934039`); or share a Shareable Link only after an owner decision.
 
 ## Other assumptions
-- Repo is private; no secrets committed; `.env.example` only; `.env.local` is gitignored.
+- Repo is private; no secrets committed; no environment variables are required in Phase 1; `.env*` files other than `.env.example` are gitignored.
 - No personal data about children, parents or staff in Phase 1.
-- Response headers are set in `next.config.ts`. A CSP is a Phase 2 task.
+- Everything under `public/` is visible to anyone with access — put nothing sensitive there.
+- `noindex` (`X-Robots-Tag`, `robots.txt`) is defence in depth, not access control.
+- Response headers are set in `next.config.ts`: `X-Robots-Tag`, `nosniff`, `X-Frame-Options: DENY`, referrer policy; `poweredByHeader` off.
 - No third-party scripts or external requests.

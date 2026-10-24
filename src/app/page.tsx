@@ -1,4 +1,3 @@
-import { requireSession } from "@/lib/auth/require-session";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
@@ -10,8 +9,7 @@ import { Hero } from "@/components/marketing/hero";
 import { PilotStatus } from "@/components/marketing/pilot-status";
 import { ProgrammeOverview } from "@/components/marketing/programme-overview";
 
-export default async function HomePage() {
-  await requireSession();
+export default function HomePage() {
   return (
     <>
       <SkipLink />

@@ -1,7 +1,6 @@
 import { Brand } from "./brand";
 import { MobileMenu } from "./mobile-menu";
 import { Container } from "@/components/ui/section";
-import { logoutAction } from "@/lib/auth/actions";
 
 export const NAV_LINKS = [
   { href: "#approach", label: "Our approach" },
@@ -29,11 +28,6 @@ export function SiteHeader() {
           <span className="hidden rounded-full bg-[#ebeee5] px-3 py-2 text-[11px] font-extrabold tracking-widest text-muted uppercase sm:inline">
             Private preview
           </span>
-          <form action={logoutAction}>
-            <button type="submit" className="px-2 py-2 text-xs font-semibold text-ink/80 underline underline-offset-4">
-              Sign out
-            </button>
-          </form>
           <MobileMenu links={NAV_LINKS} />
         </div>
       </Container>

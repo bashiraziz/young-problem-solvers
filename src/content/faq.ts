@@ -9,12 +9,12 @@ export const FAQ: readonly FaqItem[] = [
   {
     question: "Will children learn abacus or have to use computers?",
     answer:
-      "No abacus is required. Early sessions combine direct instruction, paper, physical materials and discussion. Digital literacy may be introduced progressively, but the foundation does not depend on a device.",
+      "No abacus is required. Early sessions combine direct instruction, paper, physical materials and discussion. Digital tools are optional at this age, and the programme does not depend on personal devices.",
   },
   {
     question: "What ages is the first programme for?",
     answer:
-      "The planned pilot serves children approximately 9–12 years old. A short diagnostic will guide placement and support, since children of the same age can have very different needs.",
+      "The planned pilot serves children aged 9–12 who have a basic understanding of whole numbers and simple operations, typically spanning parts of P4–P6. A short diagnostic guides placement and support, because age is not a proxy for mastery.",
   },
   {
     question: "How long is the programme?",
@@ -22,9 +22,14 @@ export const FAQ: readonly FaqItem[] = [
       "The proposed pilot lasts 12 weeks, with two 90-minute sessions each week (24 sessions in total).",
   },
   {
+    question: "How big will the classes be?",
+    answer:
+      "The proposed standard is up to 12 learners per lead instructor. This is a pilot operating target that still needs validation.",
+  },
+  {
     question: "Will parents receive progress reports?",
     answer:
-      "That is part of the proposed programme design: an entry diagnostic, formative feedback, a final individual assessment and a report showing examples of skills demonstrated independently.",
+      "That is part of the proposed programme design: a baseline diagnostic, weekly formative evidence, a midpoint check, a final individual assessment and a parent report showing what the learner can do independently.",
   },
   {
     question: "Where will classes take place, and can I register?",
