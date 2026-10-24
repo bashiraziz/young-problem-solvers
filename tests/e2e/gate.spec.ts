@@ -7,7 +7,7 @@ test.use({ storageState: { cookies: [], origins: [] } });
 test("signed-out visitors are redirected to login and never see the page", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveURL(/\/login$/);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Big ideas");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Private preview");
   await expect(page.getByText("Think with Numbers")).toHaveCount(0);
 });
 
@@ -34,12 +34,12 @@ test("login page is noindex", async ({ page }) => {
 
 test("wrong password shows an error; right password signs in; sign out locks again", async ({ page }) => {
   await page.goto("/login");
-  await page.getByLabel("Preview password").fill("definitely-not-the-password");
-  await page.getByRole("button", { name: /enter the preview/i }).click();
-  await expect(page.getByText("That password was not recognised")).toBeVisible();
+  await page.getByLabel("Password").fill("definitely-not-the-password");
+  await page.getByRole("button", { name: /continue/i }).click();
+  await expect(page.getByText("Incorrect password")).toBeVisible();
 
-  await page.getByLabel("Preview password").fill(E2E_PASSWORD);
-  await page.getByRole("button", { name: /enter the preview/i }).click();
+  await page.getByLabel("Password").fill(E2E_PASSWORD);
+  await page.getByRole("button", { name: /continue/i }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText("learn to think");
 
   const cookies = await page.context().cookies();

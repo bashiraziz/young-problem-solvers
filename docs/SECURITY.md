@@ -9,7 +9,7 @@ The Product Owner approved an application-level shared-password gate (see `DECIS
 - Session: `HttpOnly`, `SameSite=Lax`, `Secure` in production, 12 hours. Token = expiry + random nonce + HMAC-SHA-256, keyed by `YPS_SESSION_SECRET` **and** the password, so changing either signs everyone out.
 - Password check: SHA-256 both sides, then constant-time compare; max length 512.
 - Throttle: 5 failures per IP per 15 minutes, plus a 600 ms delay on each failure. The redirect after login is always `/` (no open redirect).
-- **Fails closed**: if `YPS_SITE_PASSWORD` (14+ chars) or `YPS_SESSION_SECRET` (32+ chars) is missing or short, every request is blocked and the login page explains why.
+- **Fails closed**: if `YPS_SITE_PASSWORD` (14+ chars) or `YPS_SESSION_SECRET` (32+ chars) is missing or short, every request is blocked and the login page shows only "Unavailable." (detail goes to server logs).
 
 **Known limits** (acceptable for a small invite-only preview with no personal data)
 - The throttle is in memory per server instance. On serverless hosting it is not shared across instances, so it slows brute force but is not a hard cap. Mitigation: a long random password. Upgrade path: Vercel WAF rate limiting or a shared store.
