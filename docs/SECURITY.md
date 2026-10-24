@@ -12,7 +12,7 @@ Vercel Authentication is the **only** access control. It is free on all plans an
 **Who can view**
 - Project owner, team or project members, and Vercel users granted access (a visitor requests access; the owner approves in Project → Settings → Deployment Protection → Requests).
 - **Hobby plan: one external user per account.** More reviewers need a Pro plan or a different method (see "If more reviewers are needed").
-- Shareable Links and Protection Bypass for Automation can bypass protection and must not exist. **Known loose end:** `vercel curl` created an automation-bypass secret on 24 Oct 2026 (see `CURRENT_STATE_REVIEW.md`, D15); it must be revoked. Prefer the short-lived OIDC token (`vercel env run`) for automated checks of **preview** deployments; do not use `vercel curl` against this project.
+- Shareable Links and Protection Bypass for Automation can bypass protection and must not exist. Verified on 24 Oct 2026 via the API: the project has **0 bypass secrets**. (One created by `vercel curl` was removed by the owner; see `CURRENT_STATE_REVIEW.md`, D15.) Use the short-lived OIDC token (`vercel env run`) for automated checks of **preview** deployments, and do not use `vercel curl` against this project, because it creates a persistent secret.
 
 **Known risks**
 1. **Single layer.** If protection is disabled — by a settings change, a project move, or a new custom domain handled differently — the site becomes public immediately. Mitigation: the verify script above; only the owner changes Vercel settings; content contains no personal data or secrets, only illustrative public-safe material.

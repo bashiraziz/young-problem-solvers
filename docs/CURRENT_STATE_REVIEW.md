@@ -79,7 +79,6 @@ No critical security defect and no broken fundamental UX was found at baseline, 
 ### Prioritised remaining issues
 | Sev | Issue | Recommendation |
 |---|---|---|
-| P1 | **A bypass secret was created by the agent** and could not be revoked by it (blocked by the permission system). `vercel curl` generated a project-level *Protection Bypass for Automation* secret at 14:17:37 UTC on 24 Oct 2026. Anyone holding it can skip Vercel Authentication. Its identifier also appeared in the agent's session output. | Revoke it: Vercel → Project → Settings → Deployment Protection → Protection Bypass for Automation → revoke (or allow the agent to call the protection-bypass API and it will revoke it). `npm run verify:protection` should still pass afterwards. |
 | P1 | Challenge pedagogy is unvalidated with children and not reviewed by a human educator | Observe a few children/parents using it; adjust hints and timing; keep the "estimate" wording until then |
 | P2 | Obsolete `YPS_SESSION_SECRET` and `YPS_SITE_PASSWORD` env vars remain on the Vercel project (production, sensitive). The app no longer reads them; deleting them was also blocked for the agent. | Delete in Project → Settings → Environment Variables |
 | P2 | Real screen-reader testing not done | Do a pass with NVDA/VoiceOver when a tester is available |
@@ -114,7 +113,7 @@ Everything below was run by the agent. Branch `verification-hardening`.
 | D13 | P2 (content) | "10–15 minutes" unsupported by the timing model | Changed to "about 15 minutes (estimate)" everywhere |
 | D14 | P3 (content) | "loss" / "lose money" vs the Workbook's "shortfall" | Vocabulary aligned; unit tests for shortfall and break-even |
 | D16 | P1 (a11y) | **Found by CI, not by local runs:** on GitHub's Linux runner (wider default fonts) `/about` overflowed in WebKit under text-spacing overrides. Cause: my own global `min-width:0` flex rule had collapsed the FAQ "+" indicator to zero width and squeezed the logo mark, and the FAQ question text could not wrap beside the indicator. | `shrink-0` on fixed-size items, text wrapped in `min-w-0`; regression test plus a deliberately wide font in the spacing tests so local runs are as strict as CI |
-| D15 | P1 (security hygiene) | `vercel curl` created a persistent automation-bypass secret (see Prioritised issues) | **Open:** revoke needed; the agent was blocked from doing it |
+| D15 | P1 (security hygiene) | `vercel curl` created a persistent automation-bypass secret (14:17 UTC, 24 Oct 2026) that the agent was blocked from revoking | **Closed:** removed by the owner in the Vercel dashboard. Verified afterwards through the API: `protectionBypass` has 0 entries, `ssoProtection.deploymentType` is still `all`, no Trusted IPs or password protection; `verify:protection` passes on all 10 paths. |
 
 ### Recommendation for Milestone 3
 Educator review and iteration on the challenge first. Then, if approved: a second original challenge (e.g. data and evidence, Weeks 4–6), the content loader and schema validation from `docs/CURRICULUM_PLATFORM.md`, a CSP, and an owner-approved decision on any parent-facing downloads.
