@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { AnchorHTMLAttributes } from "react";
 
 type Variant = "primary" | "outline" | "sun";
@@ -11,11 +12,13 @@ const variants: Record<Variant, string> = {
   sun: "border-transparent bg-sun text-ink hover:brightness-105",
 };
 
-interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ButtonProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+  href: string;
   variant?: Variant;
 }
 
-/** Link styled as a button. Use a native <button> for actions. */
-export function Button({ variant = "primary", className = "", ...props }: ButtonProps) {
-  return <a className={`${base} ${variants[variant]} ${className}`} {...props} />;
+/** Link styled as a button: client-side navigation for internal paths, a plain anchor otherwise. Use a native <button> for actions. */
+export function Button({ variant = "primary", className = "", href, ...props }: ButtonProps) {
+  const classes = `${base} ${variants[variant]} ${className}`;
+  return href.startsWith("/") ? <Link href={href} className={classes} {...props} /> : <a href={href} className={classes} {...props} />;
 }

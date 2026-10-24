@@ -7,7 +7,7 @@ Vercel Authentication is the **only** access control. It is free on all plans an
 - `ssoProtection.deploymentType = "all"` → All Deployments: previews, generated URLs and production domains. (The project previously had Standard Protection, which left production domains public.)
 - No Password Protection, no Trusted IPs, no shareable links in use.
 
-**Verified from outside (curl, logged out):** `/`, `/login`, `/robots.txt`, `/favicon.ico` on the production URL all return `302` to `https://vercel.com/sso-api…`. Repeat with `npm run verify:protection -- <url> [more URLs]` (exit code 1 if anything is not behind the sign-in redirect). **Run it after any change to Vercel project or team settings and after adding a custom domain.**
+**Verified from outside (curl, logged out):** every page (`/`, `/programme`, `/challenge`, `/parents`, `/about`), `/robots.txt`, `/sitemap.xml`, `/icon.svg`, an unknown API path and a static-asset path on the production and generated deployment URLs return `302` to `https://vercel.com/sso-api…`. Repeat with `npm run verify:protection -- <url> [more URLs]` (exit code 1 if anything is not behind the sign-in redirect). **Run it after any change to Vercel project or team settings and after adding a custom domain.**
 
 **Who can view**
 - Project owner, team or project members, and Vercel users granted access (a visitor requests access; the owner approves in Project → Settings → Deployment Protection → Requests).

@@ -1,20 +1,22 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { NAV_LINKS } from "./nav-links";
 
-interface Props {
-  links: readonly { href: string; label: string }[];
-}
-
-export function MobileMenu({ links }: Props) {
-  const [open, setOpen] = useState(false);
+export function MobileMenu() {
+  const pathname = usePathname();
+  // The menu is open only on the page where it was opened, so it closes itself after navigating.
+  const [openedOn, setOpenedOn] = useState<string | null>(null);
+  const open = openedOn === pathname;
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setOpen(false);
+        setOpenedOn(null);
         buttonRef.current?.focus();
       }
     };
@@ -29,7 +31,7 @@ export function MobileMenu({ links }: Props) {
         type="button"
         aria-expanded={open}
         aria-controls="mobile-nav"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpenedOn(open ? null : pathname)}
         className="rounded-xl border border-line bg-white px-4 py-2.5 text-sm font-extrabold"
       >
         {open ? "Close" : "Menu"}
@@ -41,15 +43,16 @@ export function MobileMenu({ links }: Props) {
           className="absolute inset-x-0 top-full border-b border-line bg-cream px-4 py-3 shadow-card"
         >
           <ul className="flex flex-col">
-            {links.map((l) => (
+            {NAV_LINKS.map((l) => (
               <li key={l.href}>
-                <a
+                <Link
                   href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-3 text-base font-bold hover:bg-mint"
+                  aria-current={pathname === l.href ? "page" : undefined}
+                  onClick={() => setOpenedOn(null)}
+                  className={`block rounded-lg px-3 py-3 text-base font-bold hover:bg-mint ${pathname === l.href ? "text-teal" : ""}`}
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -7,7 +7,7 @@ Goal: grow the site into a learning platform **without a rewrite and without bui
 2. **Two experiences, one app, hard boundaries.** `(academy)` = public-facing parent/prospect site (today's homepage). `(platform)` = instructors, students, parents (`/teach`, `/learn`, `/parent`). Same Next.js project (ADR-002); separated by route group and `src/features/*` modules, with an ESLint `no-restricted-imports` rule so academy code cannot import platform internals.
 3. **Content never goes in the database.** A database (later) holds *people and progress* only. Content stays in git, so it is reviewable, diffable and versioned with releases.
 4. **Audience is enforced on the server.** Every content item carries `audience: public | student | parent | instructor`. The loader filters by the caller's role; instructor guides and assessment answer keys are never bundled into public or student pages.
-5. **Pure, tested logic.** Exercise checking and scoring are pure functions with unit tests (as `budgeting.ts` already is).
+5. **Pure, tested logic.** Exercise checking and scoring are pure functions with unit tests (as `src/lib/challenge/stall.ts` already is).
 
 ## 2. Content model
 ```
