@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 const ROUTES = [
   { path: "/", h1: /learn to think/i, title: /Young Problem Solvers/ },
@@ -14,7 +15,8 @@ function watchForErrors(page: Page) {
   const problems: string[] = [];
   page.on("console", (m) => m.type() === "error" && problems.push(`console: ${m.text()}`));
   page.on("pageerror", (e) => problems.push(`pageerror: ${e.message}`));
-  page.on("requestfailed", (r) => problems.push(`requestfailed: ${r.url()}`));
+  // Vercel injects its own toolbar script on preview deployments only; the deployed-run guard aborts it on purpose.
+  page.on("requestfailed", (r) => !new URL(r.url()).hostname.endsWith("vercel.live") && problems.push(`requestfailed: ${r.url()}`));
   page.on("response", (r) => r.status() >= 400 && problems.push(`HTTP ${r.status()}: ${r.url()}`));
   return problems;
 }

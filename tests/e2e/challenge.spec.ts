@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 const question = (page: Page, text: RegExp) => page.locator("form", { hasText: text });
 
@@ -182,7 +183,9 @@ test("privacy: no network writes, no third parties and nothing stored while usin
   await next(page, "Reflect").click();
 
   expect(requests.filter((r) => r.method !== "GET"), "no POST/PUT/etc.").toEqual([]);
-  expect(requests.filter((r) => new URL(r.url).origin !== origin), "no cross-origin requests").toEqual([]);
+  // Vercel injects its own toolbar script on preview deployments only; production never loads it.
+  const thirdParty = requests.filter((r) => new URL(r.url).origin !== origin && !new URL(r.url).hostname.endsWith("vercel.live"));
+  expect(thirdParty, "no cross-origin requests").toEqual([]);
 
   const stored = await page.evaluate(async () => ({
     local: localStorage.length,

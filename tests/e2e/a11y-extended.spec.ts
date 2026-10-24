@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 const ROUTES = ["/", "/programme", "/challenge", "/parents", "/about"];
 
@@ -14,12 +15,6 @@ for (const path of ROUTES) {
     const navNames = await page.$$eval("nav", (ns) => ns.filter((n) => n.getClientRects().length > 0).map((n) => n.getAttribute("aria-label")));
     expect(new Set(navNames).size).toBe(navNames.length);
     expect(navNames.every(Boolean)).toBe(true);
-  });
-
-  test(`${path}: reflows at 320 px with no horizontal scrolling (WCAG 1.4.10)`, async ({ page }) => {
-    await page.setViewportSize({ width: 320, height: 640 });
-    await page.goto(path);
-    expect(await overflow(page)).toBeLessThanOrEqual(0);
   });
 
   test(`${path}: usable at 200% text size and with WCAG text-spacing overrides (1.4.4, 1.4.12)`, async ({ page }) => {
@@ -93,22 +88,33 @@ for (const path of ROUTES) {
   });
 }
 
-test("challenge step 3 (the busiest screen) also reflows at 320 px and is not clipped", async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 640 });
-  await page.goto("/challenge");
-  const est = page.locator("form", { hasText: /Your estimate/ });
-  await est.getByRole("textbox").fill("70000");
-  await est.getByRole("textbox").press("Enter");
-  await page.getByRole("button", { name: /Next: Calculate/ }).click();
-  for (const [re, v] of [[/40 cups/, "48000"], [/60 samosas/, "24000"], [/total cost of both orders/, "72000"], [/how much money is left/, "13000"]] as const) {
-    const f = page.locator("form", { hasText: re });
-    await f.getByRole("textbox").fill(v);
-    await f.getByRole("textbox").press("Enter");
+// A viewport override (not page.setViewportSize, which hangs in Firefox at this width) works in every browser.
+test.describe("at 320 px wide (WCAG 1.4.10 reflow)", () => {
+  test.use({ viewport: { width: 320, height: 640 } });
+
+  for (const path of ROUTES) {
+    test(`${path}: no horizontal scrolling`, async ({ page }) => {
+      await page.goto(path);
+      expect(await overflow(page)).toBeLessThanOrEqual(0);
+    });
   }
-  await page.getByRole("button", { name: /Next: Choose/ }).click();
-  await page.getByRole("textbox", { name: /^Fruit juice/ }).fill("30");
-  expect(await overflow(page)).toBeLessThanOrEqual(0);
-  const box = await page.getByRole("textbox", { name: /^Fruit juice/ }).boundingBox();
-  expect(box!.x).toBeGreaterThanOrEqual(0);
-  expect(box!.x + box!.width).toBeLessThanOrEqual(320);
+
+  test("challenge step 3 (the busiest screen) is not clipped", async ({ page }) => {
+    await page.goto("/challenge");
+    const est = page.locator("form", { hasText: /Your estimate/ });
+    await est.getByRole("textbox").fill("70000");
+    await est.getByRole("textbox").press("Enter");
+    await page.getByRole("button", { name: /Next: Calculate/ }).click();
+    for (const [re, v] of [[/40 cups/, "48000"], [/60 samosas/, "24000"], [/total cost of both orders/, "72000"], [/how much money is left/, "13000"]] as const) {
+      const f = page.locator("form", { hasText: re });
+      await f.getByRole("textbox").fill(v);
+      await f.getByRole("textbox").press("Enter");
+    }
+    await page.getByRole("button", { name: /Next: Choose/ }).click();
+    await page.getByRole("textbox", { name: /^Fruit juice/ }).fill("30");
+    expect(await overflow(page)).toBeLessThanOrEqual(0);
+    const box = await page.getByRole("textbox", { name: /^Fruit juice/ }).boundingBox();
+    expect(box!.x).toBeGreaterThanOrEqual(0);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(320);
+  });
 });
