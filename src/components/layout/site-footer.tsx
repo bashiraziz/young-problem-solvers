@@ -10,7 +10,7 @@ export function SiteFooter() {
         <Brand />
         <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
           {NAV_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="hover:text-teal">
+            <Link key={l.href} href={l.href} className="inline-block py-1.5 hover:text-teal">
               {l.label}
             </Link>
           ))}

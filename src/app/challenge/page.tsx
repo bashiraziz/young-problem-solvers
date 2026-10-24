@@ -13,7 +13,7 @@ import { formatUgx } from "@/lib/formatters";
 
 export const metadata: Metadata = {
   title: "Try a Challenge",
-  description: "A 10–15 minute budgeting challenge for ages 9–12: estimate, calculate, choose, justify and reflect. Nothing is recorded or sent.",
+  description: "An estimated 15-minute budgeting challenge for ages 9–12: estimate, calculate, choose, justify and reflect. Nothing is recorded or sent.",
 };
 
 export default function ChallengePage() {
@@ -45,8 +45,8 @@ export default function ChallengePage() {
 
           <section aria-labelledby="prices-h" className="rounded-3xl border border-line bg-white p-6">
             <h2 id="prices-h" className="text-xl font-black">Price list</h2>
-            <div className="mt-3 overflow-x-auto">
-              <table className="w-full min-w-[22rem] text-left text-sm">
+            <div className="mt-3">
+              <table className="w-full text-left text-sm">
                 <caption className="sr-only">Buying and selling price of each product, in Ugandan shillings</caption>
                 <thead>
                   <tr className="border-b border-line">

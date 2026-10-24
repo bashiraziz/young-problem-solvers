@@ -119,7 +119,7 @@ test("skip link is the first tab stop and moves focus to main content", async ({
 
 test("home call-to-action leads to the working challenge", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: /Try the 10-minute challenge/ }).click();
+  await page.getByRole("link", { name: /Try the challenge/ }).first().click();
   await expect(page).toHaveURL(/\/challenge$/);
   await expect(page.getByRole("heading", { level: 2, name: "Estimate" })).toBeVisible();
 });

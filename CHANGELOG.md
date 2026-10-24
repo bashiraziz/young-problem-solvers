@@ -2,7 +2,7 @@
 
 ## Milestone 2 — parent-facing curriculum demonstration (branch `milestone-2`, not merged)
 - **Information architecture:** five routes — Home, Foundation Programme, Try a Challenge, For Parents, About — with a shared header, mobile menu, footer, per-page metadata and a single `h1` each.
-- **Challenge:** original 10–15 minute "School Fair Refreshments Stall" (UGX 100,000): estimate → calculate → choose → justify → reflect; graduated hints, specific mistake feedback, worked answer after three hints, evidence-checked reasons, "3 out of 4 sell" what-if, adult explanation of what it does and does not measure. No accounts, storage, cookies or network requests.
+- **Challenge:** original "School Fair Refreshments Stall" (UGX 100,000): estimate → calculate → choose → justify → reflect; graduated hints, specific mistake feedback, worked answer after three hints, evidence-checked reasons, "3 out of 4 sell" what-if, adult explanation of what it does and does not measure. No accounts, storage, cookies or network requests.
 - **Programme:** all 12 weeks with driving questions and three observable outcomes each; five-stage session cycle with minutes; "what we do not promise".
 - **Parents:** four-point assessment timeline (baseline, every session, Week 6, Week 12) and an illustrative report mirroring the Assessment & Reporting Pack.
 - **Content:** typed, versioned programme content with stable IDs; challenge reference answers computed from data and verified in tests. Instructor-only material kept out (tests enforce it).

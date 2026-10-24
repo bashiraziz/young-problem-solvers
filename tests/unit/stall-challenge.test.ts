@@ -212,7 +212,7 @@ describe("reasonEvidence", () => {
     expect(r.reserve.supported).toBe(true); // 12,000 ≥ 10,000
     expect(r.surplus.supported).toBe(true);
     expect(r["safe-three-quarters"].supported).toBe(false); // −5,400
-    expect(r["safe-three-quarters"].message).toContain("lose money");
+    expect(r["safe-three-quarters"].message).toContain("shortfall");
     expect(r.choice.supported).toBe(true);
     expect(r.margin.supported).toBe(false); // 390 < 550
     expect(r.margin.message).toContain("UGX 390");
@@ -225,6 +225,22 @@ describe("reasonEvidence", () => {
     expect(r["safe-three-quarters"].supported).toBe(true); // +1,900
     expect(r.choice.supported).toBe(false); // 2 products
     expect(r.margin.supported).toBe(true);
+  });
+
+  it("uses the Workbook word 'shortfall' for a negative surplus and says 'break even' at zero", () => {
+    // 20 juice × 600 + 10 samosas × 300 = 15,000 margin = the stall fee, so surplus is exactly 0.
+    const even = evaluatePlan(S, { juice: 20, samosa: 10 });
+    expect(even.surplusAll).toBe(0);
+    const [e] = reasonEvidence(S, even, ["surplus"]);
+    expect(e.supported).toBe(false);
+    expect(e.message).toMatch(/break even/i);
+
+    const short = evaluatePlan(S, { juice: 5, samosa: 5 });
+    expect(short.surplusAll).toBe(-10_500);
+    const [f] = reasonEvidence(S, short, ["surplus"]);
+    expect(f.supported).toBe(false);
+    expect(f.message).toContain("shortfall");
+    expect(f.message).toContain("−UGX 10,500");
   });
 
   it("returns nothing when no reason is picked", () => {
