@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
+// Viewports required by the Milestone 2 brief: 375 px, 768 px and 1440 px wide.
 export default defineConfig({
   testDir: "tests/e2e",
   fullyParallel: true,
@@ -14,8 +15,8 @@ export default defineConfig({
     timeout: 180_000,
   },
   projects: [
-    { name: "mobile", use: { ...devices["Pixel 7"] } },
-    { name: "tablet", use: { ...devices["iPad (gen 7)"], browserName: "chromium" } },
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
+    { name: "mobile-375", use: { ...devices["Pixel 7"], viewport: { width: 375, height: 812 } } },
+    { name: "tablet-768", use: { ...devices["Desktop Chrome"], viewport: { width: 768, height: 1024 }, hasTouch: true } },
+    { name: "desktop-1440", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
   ],
 });

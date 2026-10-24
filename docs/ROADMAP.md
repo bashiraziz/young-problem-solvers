@@ -11,3 +11,5 @@
 
 ## Milestones after Foundation (see `REVIEW.md` §8 and `CURRICULUM_PLATFORM.md`)
 M2 Curriculum Content System → M3 Interactive Learning → M4 Student Progress. Each requires Product Owner approval; the Phase 2 inquiry work above runs in parallel once contact details and consent wording are approved.
+
+**Status (24 Oct 2026):** Milestone 2 (parent-facing curriculum demonstration) implemented on branch `milestone-2`, pending Product Owner review. See `CURRENT_STATE_REVIEW.md` for evidence, open risks and the Milestone 3 recommendation (educator review of the challenge first).

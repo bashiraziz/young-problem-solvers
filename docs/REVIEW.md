@@ -1,5 +1,7 @@
 # Milestone 1 review package — Foundation website
 
+> Historical. Superseded by `docs/CURRENT_STATE_REVIEW.md` (Milestone 2). Its screenshots were replaced; routes, test counts and the homepage demo described here have changed.
+
 Repository: https://github.com/bashiraziz/young-problem-solvers (private) · Latest commit reviewed: `0934039` (CI green on all three pushes).
 Preview URL: https://young-problem-solvers.vercel.app — behind Vercel Authentication (All Deployments); a Vercel-account login is required, so only the owner (plus one granted external reviewer on Hobby) can open it.
 
@@ -25,7 +27,7 @@ Screenshots predate the content-alignment pass (assessment section and some titl
 |---|---|
 | `npm run lint` | Pass |
 | `npm run typecheck` (strict) | Pass |
-| Unit tests (Vitest) | 14/14 pass — budgeting maths, challenge component, programme-content integrity |
+| Unit tests (Vitest) | 14/14 pass at the time (Milestone 1) |
 | `npm run build` | Pass |
 | Playwright e2e (mobile/tablet/desktop) | 19 pass, 2 skipped by design (keyboard skip-link test is desktop-only), **0 failures** |
 | axe (WCAG 2.0/2.1/2.2 A+AA, serious/critical) | 0 violations on the homepage in all 3 viewports (one contrast issue found and fixed during development) |

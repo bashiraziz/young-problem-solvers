@@ -10,13 +10,14 @@ npm ci
 npm run dev        # http://localhost:3000
 npm run check      # lint + typecheck + unit tests + build
 npx playwright install chromium
-npm run test:e2e   # smoke, responsive and axe accessibility checks
+npm run test:e2e   # routes, challenge flow, privacy, axe; at 375, 768 and 1440 px
+npm run verify:protection -- <url>   # confirms a deployment is behind Vercel sign-in
 ```
 
 No environment variables are needed. The local dev server is open; access control exists only on Vercel (see below).
 
 ## Layout
-`src/app` routes · `src/components/{layout,marketing,interactive,ui}` · `src/content` programme/FAQ/challenge data · `src/lib` pure logic · `tests/{unit,e2e}` · `docs/` · `reference/` source brief.
+`src/app` routes (`/`, `/programme`, `/challenge`, `/parents`, `/about`) · `src/components/{layout,marketing,interactive,ui}` · `src/content` typed, versioned programme, FAQ and challenge data · `src/lib` pure logic (`challenge/`, `formatters.ts`) · `tests/{unit,e2e}` · `scripts/` · `docs/` · `reference/` source brief.
 
 ## Release and rollback
 1. Work on a branch and open a PR. CI (`.github/workflows/ci.yml`) must pass; Vercel creates a protected preview.

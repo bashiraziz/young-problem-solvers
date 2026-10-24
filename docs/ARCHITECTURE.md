@@ -4,9 +4,10 @@ Single Next.js 16 App Router project, TypeScript strict, Tailwind v4. The homepa
 
 | Concern | Choice |
 |---|---|
-| Rendering | Server Components; client components only for `MobileMenu` and `BudgetChallenge` |
-| Data | Typed static modules in `src/content`, types in `src/types` |
-| Logic | Pure functions in `src/lib` (`budgeting.ts`), unit-tested |
+| Routes | `/`, `/programme`, `/challenge`, `/parents`, `/about` (all statically prerendered) |
+| Rendering | Server Components; client components only for `SiteNav`, `MobileMenu` and the challenge (`components/interactive/stall`) |
+| Data | Typed, versioned modules in `src/content` with stable IDs (`foundation.u1`, `foundation.w02`, `yps.challenge.refreshments-stall`); types in `src/types`. Instructor-only material is excluded and test-enforced (ADR-009) |
+| Logic | Pure functions in `src/lib/challenge` (parsing, estimate, calculation, plan, reasons) and a pure reducer for challenge state, all unit-tested; no storage or network |
 | Styling | Tailwind tokens in `globals.css` `@theme` |
 | Access | Vercel Authentication, All Deployments (platform edge; no auth code in the app) — `docs/SECURITY.md` |
 | Headers | `next.config.ts`: `X-Robots-Tag: noindex`, nosniff, frame deny, referrer policy |
