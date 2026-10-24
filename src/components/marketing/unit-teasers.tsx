@@ -22,8 +22,9 @@ export function UnitTeasers() {
             </li>
           ))}
         </ol>
-        <div className="mt-8">
-          <Button href="/programme" variant="outline">See every week and what children can do →</Button>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button href="/programme/foundation" variant="outline">See every week and what children can do →</Button>
+          <Button href="/learn/foundation/unit-1">Explore the Unit 1 lessons →</Button>
         </div>
       </Container>
     </section>

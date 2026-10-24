@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_LINKS } from "./nav-links";
+import { NAV_LINKS, isCurrent } from "./nav-links";
 
 export function SiteNav() {
   const pathname = usePathname();
   return (
     <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
       {NAV_LINKS.map((l) => {
-        const current = pathname === l.href;
+        const current = isCurrent(pathname, l);
         return (
           <Link
             key={l.href}

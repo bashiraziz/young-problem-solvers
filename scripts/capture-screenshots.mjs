@@ -5,7 +5,7 @@ import { chromium, devices } from "@playwright/test";
 
 const base = process.argv[2] ?? "http://localhost:3217";
 const out = process.argv[3] ?? "docs/review";
-const routes = [["home", "/"], ["programme", "/programme"], ["challenge", "/challenge"], ["parents", "/parents"], ["about", "/about"], ["404", "/nope"]];
+const routes = [["home", "/"], ["programme", "/programme/foundation"], ["challenge", "/challenge"], ["parents", "/parents"], ["about", "/about"], ["404", "/nope"]];
 const sizes = {
   mobile: { ...devices["Pixel 7"], viewport: { width: 375, height: 812 } },
   tablet: { viewport: { width: 768, height: 1024 } },

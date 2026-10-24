@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/section";
 import { PageIntro } from "@/components/ui/page-intro";
+import { StatusBadge } from "@/components/learning/lesson-parts";
+import { manifest } from "@/content/foundation";
 import { CURRICULUM, LEARNING_CYCLE, PROGRAMME, UNITS } from "@/content/programme";
 
 export const metadata: Metadata = {
@@ -39,6 +42,7 @@ export default function ProgrammePage() {
             <h2 id={`${u.id}-h`} className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">{u.title}</h2>
             <p className="mt-2 font-semibold text-muted">{u.focus}</p>
             <p className="mt-3 max-w-3xl text-lg leading-relaxed">{u.summary}</p>
+            <UnitStatus number={u.number} />
 
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
               {u.weeks.map((w) => (
@@ -100,5 +104,24 @@ export default function ProgrammePage() {
         </Container>
       </section>
     </>
+  );
+}
+
+/** Where each unit stands in the Learning Library. Unit 1 is drafted; Units 2 to 4 are outlined only. */
+function UnitStatus({ number }: { number: number }) {
+  const status = manifest.units[number - 1].status;
+  return (
+    <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+      {status === "outline-only" ? (
+        <span className="inline-flex rounded-full bg-cream px-3 py-1.5 text-xs font-extrabold tracking-wide uppercase">Outline only: lessons not yet written</span>
+      ) : (
+        <>
+          <StatusBadge status="pilot-draft-not-validated" />
+          <Link href="/learn/foundation/unit-1" className="inline-block py-2 text-sm font-extrabold text-teal underline-offset-2 hover:underline">
+            Explore the six Unit 1 lessons →
+          </Link>
+        </>
+      )}
+    </div>
   );
 }

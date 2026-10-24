@@ -1,7 +1,20 @@
 import { type Page } from "@playwright/test";
 import { expect, test } from "./fixtures";
 
-const ROUTES = ["/", "/programme", "/challenge", "/parents", "/about"];
+const ROUTES = [
+  "/",
+  "/programme/foundation",
+  "/learn/foundation/unit-1",
+  "/learn/foundation/unit-1/lesson/l01",
+  "/learn/foundation/unit-1/lesson/l02",
+  "/learn/foundation/unit-1/lesson/l05",
+  "/practice/foundation/unit-1/lesson/l01",
+  "/practice/foundation/unit-1/lesson/l02",
+  "/practice/foundation/unit-1/lesson/l05",
+  "/challenge",
+  "/parents",
+  "/about",
+];
 
 /** Records every Content-Security-Policy violation the browser reports. */
 async function trackViolations(page: Page) {
