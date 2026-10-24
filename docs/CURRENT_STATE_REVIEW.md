@@ -48,6 +48,7 @@ No critical security defect and no broken fundamental UX was found at baseline, 
 | Claims | `src` scanned for testimonials, prices, enrolment calls, accreditation, partnerships, opening dates, guaranteed results: none. The only prices are the fictional stall's. Accreditation and validation are explicitly denied on Programme, About and FAQ. |
 | Confidential material | Build output scanned (`.next/static`, 14 files): zero hits for assessment markers, answer-key wording, env var names, key/token patterns, the old 25,000 scenario or the removed location claim. A unit test blocks `INDIVIDUAL CHECK`, `EVIDENCE TO KEEP`, answer-key wording and `Form A/B` in shipped source; `public/` holds no downloadable documents. |
 | Access protection | `npm run verify:protection -- https://young-problem-solvers.vercel.app` → all 10 paths `302 → vercel.com/sso-api`, exit 0 (production, current build). |
+| Branch preview | Draft PR #1 → Vercel preview `https://young-problem-solvers-qupcemlpo-bashiraziz-projects.vercel.app` (commit `8b89dd6`, state READY). `verify:protection` on it: all 10 paths `302 → vercel.com/sso-api`, exit 0. |
 | Content source | Unit titles, week titles, driving questions and outcomes match the Foundation Curriculum Specification V1; typed, versioned (`CURRICULUM.version`), stable IDs (`foundation.u1`, `foundation.w02`, …) in `src/content/`, separate from components. |
 
 ### Defects found and fixed during Milestone 2
@@ -64,7 +65,7 @@ No critical security defect and no broken fundamental UX was found at baseline, 
 - Deferred by the brief: accounts, portals, LMS, payments, parent dashboards, AI tutors.
 
 ### Not tested (no evidence yet)
-- **The milestone branch on a real Vercel preview URL**, and its authenticated rendering. (Needs the branch pushed, and a Vercel-signed-in reviewer.) I cannot sign in to the owner's Vercel account.
+- **Authenticated rendering of the milestone preview** (protection is verified; what a signed-in reviewer sees is not). The agent cannot sign in to the owner's Vercel account.
 - Lighthouse / Core Web Vitals on a deployed URL. (Earlier local measurement of the old homepage: LCP ≈ 224 ms, CLS 0.)
 - Screen readers (NVDA, VoiceOver, TalkBack), 200 % text zoom, Windows High Contrast.
 - Real phones and tablets; browsers other than Chromium.
@@ -81,7 +82,7 @@ No critical security defect and no broken fundamental UX was found at baseline, 
 | Sev | Issue | Recommendation |
 |---|---|---|
 | P1 | Challenge pedagogy unreviewed by an educator | Have an instructor/teacher review hints, wording, difficulty and the "3 out of 4" fraction step before wider sharing |
-| P1 | Preview of this branch not yet verified on Vercel | Push the branch, open the PR, run `verify:protection` on the preview URL, owner signs in and walks through |
+| P1 | Signed-in walkthrough of the preview not yet done | Owner signs in to Vercel and walks through the preview URL (protection already verified) |
 | P2 | No CSP | Nonce-based CSP in Milestone 3 |
 | P2 | Lighthouse, screen-reader and zoom checks outstanding | Run on the preview; record in this file |
 | P2 | Student Workbook not cross-checked | Review in Milestone 3 |
