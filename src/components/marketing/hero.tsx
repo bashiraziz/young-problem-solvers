@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Mascot } from "@/components/ui/mascot";
 import { Container } from "@/components/ui/section";
 import { REFRESHMENTS_STALL as S } from "@/content/challenges/refreshments-stall";
 import { PROGRAMME } from "@/content/programme";
@@ -29,7 +30,10 @@ export function Hero() {
             <li>{PROGRAMME.sessionMinutes} minutes each</li>
           </ul>
         </div>
-        <div className="rounded-3xl border border-line bg-white p-6 shadow-card">
+        <div>
+          {/* Hidden on small screens so it never squeezes the headline. */}
+          <Mascot pose="explaining" size={160} className="mb-3 ml-auto hidden sm:block" />
+          <div className="rounded-3xl border border-line bg-white p-6 shadow-card">
           <p className="text-xs font-extrabold tracking-wider text-teal uppercase">Example challenge · ages {S.ageRange}</p>
           <p className="mt-3 text-2xl font-black">{S.title}</p>
           <p className="mt-3 leading-relaxed text-muted">
@@ -44,6 +48,7 @@ export function Hero() {
             ))}
           </ol>
           <p className="mt-4 text-sm font-bold">Show your thinking! <span className="font-normal text-muted">There is more than one good plan.</span></p>
+          </div>
         </div>
       </Container>
     </section>

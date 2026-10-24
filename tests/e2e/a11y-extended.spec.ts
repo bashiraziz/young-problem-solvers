@@ -92,8 +92,11 @@ for (const path of ROUTES) {
 test("fixed-size flex items are never squeezed (logo mark, FAQ indicators), even with huge text and a wide font", async ({ page }) => {
   await page.goto("/about");
   await page.addStyleTag({ content: "html{font-size:200% !important} *{font-family: Verdana, 'DejaVu Sans', sans-serif !important; letter-spacing:0.12em !important}" });
-  const mark = await page.locator("header [aria-hidden=true]").first().evaluate((el) => ({ w: el.getBoundingClientRect().width, scrollW: el.scrollWidth, clientW: el.clientWidth }));
-  expect(mark.scrollW, "logo text fits its box").toBeLessThanOrEqual(mark.clientW + 1);
+  const mark = await page.locator('header img[src*="mark.svg"]').evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return { w: r.width, h: r.height };
+  });
+  expect(Math.abs(mark.w - mark.h), "logo mark stays square").toBeLessThanOrEqual(1);
   expect(mark.w).toBeGreaterThanOrEqual(40);
   const indicators = await page.locator("summary span[aria-hidden=true]").evaluateAll((els) => els.map((e) => e.getBoundingClientRect().width));
   expect(indicators.length).toBeGreaterThan(0);

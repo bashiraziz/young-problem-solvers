@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Robot puzzled">
+<path d="M27 32 Q27 20 39 20 Q51 20 51 31 Q51 39 41 43 L40 50" fill="none" stroke="#F4BF65" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="40" cy="61" r="4.5" fill="#F4BF65"></circle>
+<path d="M100 40 V22" stroke="#133F45" stroke-width="5" stroke-linecap="round"></path>
+<circle cx="100" cy="17" r="9" fill="#8A9BA0"></circle>
+<rect x="45" y="62" width="12" height="28" rx="5" fill="#8A9BA0"></rect>
+<rect x="143" y="62" width="12" height="28" rx="5" fill="#8A9BA0"></rect>
+<rect x="55" y="40" width="90" height="70" rx="22" fill="#DCF4E7"></rect>
+<rect x="67" y="54" width="66" height="42" rx="14" fill="#133F45"></rect>
+<circle cx="86" cy="72" r="8" fill="#7FE0B0"></circle>
+<circle cx="114" cy="73" r="5" fill="#7FE0B0"></circle>
+<path d="M88 88 Q94 83 100 88 Q106 93 112 88" fill="none" stroke="#7FE0B0" stroke-width="3.5" stroke-linecap="round"></path>
+<rect x="90" y="110" width="20" height="10" fill="#8A9BA0"></rect>
+<path d="M66 132 L52 162" stroke="#12685F" stroke-width="12" stroke-linecap="round"></path>
+<circle cx="50" cy="166" r="9" fill="#DCF4E7"></circle>
+<path d="M134 132 Q172 104 152 60" fill="none" stroke="#12685F" stroke-width="12" stroke-linecap="round"></path>
+<circle cx="150" cy="56" r="9" fill="#DCF4E7"></circle>
+<rect x="62" y="118" width="76" height="56" rx="18" fill="#12685F"></rect>
+<circle cx="100" cy="146" r="13" fill="#F4BF65"></circle>
+<path d="M100 139 V153 M93 146 H107" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"></path>
+<rect x="70" y="174" width="24" height="14" rx="7" fill="#133F45"></rect>
+<rect x="106" y="174" width="24" height="14" rx="7" fill="#133F45"></rect>
+</svg>

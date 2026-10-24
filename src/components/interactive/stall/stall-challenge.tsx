@@ -14,9 +14,10 @@ import {
   planIssues,
   reasonEvidence,
 } from "@/lib/challenge/stall";
+import { Mascot } from "@/components/ui/mascot";
 import { formatUgx } from "@/lib/formatters";
 import { NumberQuestion } from "./number-question";
-import { LAST_STEP, STEPS, initialState, isQuestionDone, reducer, type State } from "./state";
+import { LAST_STEP, STEPS, initialState, isQuestionDone, mascotMood, reducer, type State } from "./state";
 
 const REFLECTION_CHECKS = [
   { id: "estimate-first", label: "I estimated before I calculated." },
@@ -74,6 +75,9 @@ export function StallChallenge() {
     true,
   ];
 
+  const planOk = issues.length === 0 && !quantityErrors;
+  const mood = mascotMood(state.step, state.step === 0 ? ["estimate"] : questions.map((cq) => cq.id), state.q, planOk);
+
   const q = (id: string) => state.q[id];
   const emptyQ = { input: "", attempts: 0, hints: 0, status: "idle" as const, message: "" };
 
@@ -122,6 +126,11 @@ export function StallChallenge() {
           })}
         </ol>
       </nav>
+
+      <div className="mt-5 flex items-center gap-3">
+        <Mascot pose={mood.pose} size={72} className="shrink-0" />
+        <p className="min-w-0 text-sm font-bold text-deep">{mood.caption}</p>
+      </div>
 
       <div className="mt-6 space-y-4">
         {state.step === 0 && (

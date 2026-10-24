@@ -110,3 +110,27 @@ export const isQuestionDone = (q: QState | undefined): boolean =>
 
 /** The worked answer is offered after three hints or three wrong attempts. */
 export const canReveal = (q: QState | undefined): boolean => !!q && !isQuestionDone(q) && (q.hints >= MAX_HINTS || q.attempts >= 3);
+
+export type MascotMood = "thinking" | "got-it" | "stuck" | "explaining";
+
+/**
+ * Which robot pose to show, and the line beside it. The robot never reacts to a mistake with anything but
+ * encouragement: "stuck" means "let's look at it another way", not "wrong".
+ */
+export function mascotMood(step: number, questionIds: readonly string[], q: State["q"], planOk: boolean): { pose: MascotMood; caption: string } {
+  if (step >= 3) {
+    return { pose: "explaining", caption: step === 3 ? "Explain your thinking: why is this a good plan?" : "Now tell someone how you planned it." };
+  }
+  if (step === 2) {
+    return planOk
+      ? { pose: "got-it", caption: "Your plan fits the budget. Nice thinking!" }
+      : { pose: "thinking", caption: "Try different amounts and watch the numbers change." };
+  }
+  const items = questionIds.map((id) => q[id]);
+  if (items.length > 0 && items.every(isQuestionDone)) return { pose: "got-it", caption: "Nice work! That step is done." };
+  const tricky = items.some(
+    (x) => x !== undefined && !isQuestionDone(x) && (x.hints > 0 || x.status === "incorrect" || x.status === "too-low" || x.status === "too-high"),
+  );
+  if (tricky) return { pose: "stuck", caption: "Hmm, let's look at it another way." };
+  return { pose: "thinking", caption: "Take your time and think it through." };
+}

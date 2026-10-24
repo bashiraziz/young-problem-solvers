@@ -1,5 +1,10 @@
 # Changelog
 
+## Robot mascot, logo mark and favicon (uncommitted)
+- **Brand:** the robot-head mark replaces the "YPS" text badge in the header and footer (decorative, 44 px, same tilt); the wordmark uses Nunito 900 via `next/font/google` (self-hosted at build, so the CSP is unchanged). New `src/app/icon.svg`, `favicon.ico` and `apple-icon.png`.
+- **Mascot:** `src/components/ui/mascot.tsx` (five poses in `public/mascot/`, decorative `alt=""`). Used once each on the home hero (`explaining`, hidden below `sm`), the 404 page (`stuck`) and the challenge, where `mascotMood` in `state.ts` picks the pose (thinking, stuck after a wrong answer or hint with "Hmm, let's look at it another way.", got-it when a step is done, explaining on Justify and Reflect). Parents, About and Programme have no mascot.
+- **Tests:** unit tests for pose logic; e2e for one mascot per page, decorative alt text, logo name, pose per challenge state, icons served; 404 copy updated. Brief: `docs/CLAUDE_CODE_BRIEF.md`.
+
 ## Verification pass (branch `verification-hardening`)
 - **Security:** Content-Security-Policy and Permissions-Policy (production), with tests (zero violations; cross-origin posts blocked).
 - **Accessibility fixes:** reflow at 320 px and with enlarged text/spacing; targets at least 24 px; header never loses the menu button at large text; price list replaces a wide table; extended a11y tests.

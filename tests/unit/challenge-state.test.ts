@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canReveal, initialState, isQuestionDone, MAX_HINTS, reducer, type Action, type State } from "@/components/interactive/stall/state";
+import { canReveal, initialState, isQuestionDone, mascotMood, MAX_HINTS, reducer, type Action, type State } from "@/components/interactive/stall/state";
 
 const run = (actions: Action[], from: State = initialState()) => actions.reduce(reducer, from);
 
@@ -92,5 +92,47 @@ describe("challenge state", () => {
       { type: "reset" },
     ]);
     expect(s).toEqual(initialState());
+  });
+});
+
+describe("mascot mood", () => {
+  const ids = ["a", "b"];
+  const done = (id: string): Action => ({ type: "result", id, status: "correct", message: "ok" });
+
+  it("thinks while the child is working", () => {
+    expect(mascotMood(0, ids, {}, false).pose).toBe("thinking");
+  });
+
+  it("is puzzled, with encouraging words, after a wrong answer or a hint", () => {
+    const wrong = run([{ type: "result", id: "a", status: "incorrect", message: "x" }]);
+    expect(mascotMood(1, ids, wrong.q, false)).toEqual({ pose: "stuck", caption: "Hmm, let's look at it another way." });
+    const hinted = run([{ type: "hint", id: "a" }]);
+    expect(mascotMood(1, ids, hinted.q, false).pose).toBe("stuck");
+  });
+
+  it("does not treat a typo (not a number) as a mistake", () => {
+    const typo = run([{ type: "result", id: "a", status: "invalid", message: "x" }]);
+    expect(mascotMood(1, ids, typo.q, false).pose).toBe("thinking");
+  });
+
+  it("celebrates only once every question on the step is done", () => {
+    expect(mascotMood(1, ids, run([done("a")]).q, false).pose).toBe("thinking");
+    expect(mascotMood(1, ids, run([done("a"), done("b")]).q, false).pose).toBe("got-it");
+  });
+
+  it("stops being puzzled once the question is done", () => {
+    const s = run([{ type: "hint", id: "a" }, done("a")]);
+    expect(mascotMood(0, ["a"], s.q, false).pose).toBe("got-it");
+  });
+
+  it("celebrates a valid plan and explains on the justify and reflect steps", () => {
+    expect(mascotMood(2, [], {}, true).pose).toBe("got-it");
+    expect(mascotMood(2, [], {}, false).pose).toBe("thinking");
+    expect(mascotMood(3, [], {}, false).pose).toBe("explaining");
+    expect(mascotMood(4, [], {}, true).pose).toBe("explaining");
+  });
+
+  it("never uses words like wrong or failed", () => {
+    for (const step of [0, 1, 2, 3, 4]) for (const ok of [true, false]) expect(mascotMood(step, ids, {}, ok).caption).not.toMatch(/wrong|fail|bad/i);
   });
 });

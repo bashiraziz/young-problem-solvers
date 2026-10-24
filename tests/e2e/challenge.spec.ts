@@ -196,3 +196,26 @@ test("privacy: no network writes, no third parties and nothing stored while usin
   expect(stored).toEqual({ local: 0, session: 0, cookie: "", databases: 0 });
   expect(await context.cookies()).toEqual([]);
 });
+
+test("the robot's pose follows the child's progress", async ({ page }) => {
+  await page.goto("/challenge");
+  const pose = page.locator("img[data-mascot]");
+  await expect(pose).toHaveCount(1);
+  await expect(pose).toHaveAttribute("data-mascot", "thinking");
+
+  await answer(page, /Your estimate/, "30000");
+  await expect(pose).toHaveAttribute("data-mascot", "stuck");
+  await expect(page.getByText("Hmm, let's look at it another way.")).toBeVisible();
+
+  await answer(page, /Your estimate/, "70000");
+  await expect(pose).toHaveAttribute("data-mascot", "got-it");
+  await next(page, "Calculate").click();
+  await expect(pose).toHaveAttribute("data-mascot", "thinking");
+
+  await completeCalculations(page);
+  await fillPlan(page, MID_PLAN);
+  await expect(pose).toHaveAttribute("data-mascot", "got-it");
+  await next(page, "Justify").click();
+  await expect(pose).toHaveAttribute("data-mascot", "explaining");
+  await expect(pose).toHaveCount(1);
+});

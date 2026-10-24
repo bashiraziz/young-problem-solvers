@@ -145,6 +145,8 @@ test("unknown route returns the 404 page with navigation", async ({ page }) => {
   const res = await page.goto("/nope");
   expect(res?.status()).toBe(404);
   await expect(page.getByRole("link", { name: /Back to the homepage/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /puzzle even we can.t solve/ })).toBeVisible();
+  await expect(page.locator('img[data-mascot="stuck"]')).toBeVisible();
 });
 
 test("robots.txt disallows everything and the sitemap is empty (private preview)", async ({ request }) => {
@@ -155,5 +157,31 @@ test("robots.txt disallows everything and the sitemap is empty (private preview)
 test("favicon is the YPS icon, not the framework default", async ({ request }) => {
   const res = await request.get("/icon.svg");
   expect(res.status()).toBe(200);
-  expect(await res.text()).toContain("#133f45");
+  expect((await res.text()).toLowerCase()).toContain("#133f45");
+  expect((await request.get("/apple-icon.png")).status()).toBe(200);
+  expect((await request.get("/favicon.ico")).status()).toBe(200);
+});
+
+test("at most one mascot per screen, decorative, on every page", async ({ page }) => {
+  for (const { path: route } of ROUTES) {
+    await page.goto(route);
+    const imgs = page.locator("img[data-mascot]");
+    expect(await imgs.count(), route).toBeLessThanOrEqual(1);
+    for (const img of await imgs.all()) expect(await img.getAttribute("alt"), route).toBe("");
+  }
+});
+
+test("the header logo mark is decorative and the home link keeps its name", async ({ page }) => {
+  await page.goto("/");
+  const link = page.getByRole("banner").getByRole("link", { name: /Young Problem Solvers/ });
+  await expect(link).toBeVisible();
+  const mark = link.locator('img[src*="mark.svg"]');
+  await expect(mark).toHaveAttribute("alt", "");
+});
+
+test("parents, about and programme pages stay calm: no mascot", async ({ page }) => {
+  for (const route of ["/parents", "/about", "/programme"]) {
+    await page.goto(route);
+    await expect(page.locator("img[data-mascot]"), route).toHaveCount(0);
+  }
 });
