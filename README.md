@@ -9,9 +9,11 @@ Requires Node.js 22 LTS (`.nvmrc`) and npm 11.
 npm ci
 npm run dev        # http://localhost:3000
 npm run check      # lint + typecheck + unit tests + build
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 npm run test:e2e   # routes, challenge flow, privacy, axe; at 375, 768 and 1440 px
 npm run verify:protection -- <url>   # confirms a deployment is behind Vercel sign-in
+# against a protected preview (token from the linked Vercel project; never printed):
+#   vercel env run -- env DEPLOYED_URL=https://<preview>.vercel.app npx playwright test -c playwright.deployed.config.ts
 ```
 
 No environment variables are needed. The local dev server is open; access control exists only on Vercel (see below).

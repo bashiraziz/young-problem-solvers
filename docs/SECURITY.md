@@ -12,13 +12,13 @@ Vercel Authentication is the **only** access control. It is free on all plans an
 **Who can view**
 - Project owner, team or project members, and Vercel users granted access (a visitor requests access; the owner approves in Project → Settings → Deployment Protection → Requests).
 - **Hobby plan: one external user per account.** More reviewers need a Pro plan or a different method (see "If more reviewers are needed").
-- Shareable Links and Protection Bypass for Automation can bypass protection; neither is enabled. Do not create them without owner approval.
+- Shareable Links and Protection Bypass for Automation can bypass protection and must not exist. **Known loose end:** `vercel curl` created an automation-bypass secret on 24 Oct 2026 (see `CURRENT_STATE_REVIEW.md`, D15); it must be revoked. Prefer the short-lived OIDC token (`vercel env run`) for automated checks of **preview** deployments; do not use `vercel curl` against this project.
 
 **Known risks**
 1. **Single layer.** If protection is disabled — by a settings change, a project move, or a new custom domain handled differently — the site becomes public immediately. Mitigation: the verify script above; only the owner changes Vercel settings; content contains no personal data or secrets, only illustrative public-safe material.
 2. Reviewers need Vercel accounts (and Hobby allows one external).
 3. Previously authenticated users keep access after protection is re-enabled until their cookie expires.
-4. No CSP yet (Phase 2 task); no rate limiting needed because there is no app-level login.
+4. No rate limiting is needed because there is no app-level login.
 
 **If more reviewers are needed:** upgrade to Pro and add members/viewers; or turn Vercel Authentication off and reintroduce an app-level gate (the removed implementation is in git history at commit `0934039`); or share a Shareable Link only after an owner decision.
 
@@ -27,5 +27,5 @@ Vercel Authentication is the **only** access control. It is free on all plans an
 - No personal data about children, parents or staff in Phase 1.
 - Everything under `public/` is visible to anyone with access — put nothing sensitive there.
 - `noindex` (`X-Robots-Tag`, `robots.txt`) is defence in depth, not access control.
-- Response headers are set in `next.config.ts`: `X-Robots-Tag`, `nosniff`, `X-Frame-Options: DENY`, referrer policy; `poweredByHeader` off.
+- Response headers are set in `next.config.ts`: `X-Robots-Tag`, `nosniff`, `X-Frame-Options: DENY`, referrer policy, `Permissions-Policy`, and (production builds) a **Content-Security-Policy** with everything `'self'`, `object-src 'none'`, `frame-ancestors 'none'`, `connect-src 'self'`. `'unsafe-inline'` remains for script and style because Next.js statically prerendered pages need inline bootstrap code. Preview builds additionally allow Vercel's own toolbar host. Tests: `tests/e2e/csp.spec.ts`. `poweredByHeader` is off.
 - No third-party scripts or external requests.
