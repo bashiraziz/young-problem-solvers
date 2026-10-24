@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* Centralised YPS design tokens (carried over from the v1 prototype palette). */
+@theme {
+  --color-ink: #142e35;
+  --color-deep: #133f45;
+  --color-teal: #12685f;
+  --color-teal-dark: #0c524a;
+  --color-mint: #dcf4e7;
+  --color-cream: #faf8f2;
+  --color-paper: #fffdfa;
+  --color-sun: #f4bf65;
+  --color-orange: #f18a53;
+  --color-sky: #cedef6;
+  --color-line: #e7e7df;
+  --color-muted: #566b6d;
+  --color-danger: #a8321a;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow-card: 0 20px 70px rgba(24, 57, 54, 0.09);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-sun);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
